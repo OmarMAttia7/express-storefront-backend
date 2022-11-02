@@ -37,16 +37,12 @@
 
 ## Database Schema
 #### `users` Table
-| users |
-|-------|
 | id              | SERIAL (PRIMARY KEY) |
 | first_name      | VARCHAR(50)          |
 | last_name       | VARCHAR(50)          |
 | password_digest | CHAR                 |
 
 #### `products` Table
-| products |
-| -------- |
 | id              | SERIAL (PRIMARY KEY) |
 | name            | VARCHAR(100)         |
 | magnified_price | INTEGER              |
@@ -54,14 +50,10 @@
 | category_id     | FOREIGN KEY REFRENCES categories(id) |
 
 #### `categories` Table
-| categories |
-| ---------- |
 | id              | SERIAL (PRIMARY KEY) |
 | name            | VARCHAR(50)          |
 
 #### `currencies` Table
-| currencies |
-| ---------- |
 | id              | SERIAL (PRIMARY KEY) |
 | code            | CHAR(3)              |
 | magnifier       | INTEGER              |
