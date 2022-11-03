@@ -1,4 +1,9 @@
+## dependencies
 /node_modules
 yarn.lock
+
 ## secrets
 .env
+
+## developement
+todo
