@@ -80,6 +80,7 @@
 
 #### `order-products` Table
 | field name | data type |
+| ---------- | --------- |
 | id         | INTEGER PRIMARY KEY GENERERATED ALWAYS AS IDENTITY |
 | order_id   | FOREIGN KEY REFRENCES orders(id) |
 | product_id | FOREIGN KEY REFRENCES products(id) |
