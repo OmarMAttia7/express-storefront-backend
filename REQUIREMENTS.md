@@ -39,7 +39,7 @@
 #### `users` Table
 | field name | data type |
 | ---------- | --------- |
-| id              | SERIAL (PRIMARY KEY) |
+| id              | INTEGER PRIMARY KEY GENERERATED ALWAYS AS IDENTITY |
 | first_name      | VARCHAR(50)          |
 | last_name       | VARCHAR(50)          |
 | password_digest | CHAR                 |
@@ -47,21 +47,40 @@
 #### `products` Table
 | field name | data type |
 | ---------- | --------- |
-| id              | SERIAL (PRIMARY KEY) |
+| id              | INTEGER PRIMARY KEY GENERERATED ALWAYS AS IDENTITY |
 | name            | VARCHAR(100)         |
 | magnified_price | INTEGER              |
-| currency_id     | FOREIGN KEY REFRENCES currencies(id) |
+| currency_code   | FOREIGN KEY REFRENCES currencies(code) |
 | category_id     | FOREIGN KEY REFRENCES categories(id) |
 
 #### `categories` Table
 | field name | data type |
 | ---------- | --------- |
-| id              | SERIAL (PRIMARY KEY) |
-| name            | VARCHAR(50)          |
+| id         | INTEGER PRIMARY KEY GENERERATED ALWAYS AS IDENTITY |
+| name       | VARCHAR(50)          |
 
 #### `currencies` Table
 | field name | data type |
 | ---------- | --------- |
-| id              | SERIAL (PRIMARY KEY) |
-| code            | CHAR(3)              |
-| magnifier       | INTEGER              |
+| code       | CHAR(3) PRIMARY KEY  |
+| magnifier  | INTEGER              |
+
+#### `orders` Table
+| field name | data type |
+| ---------- | --------- |
+| id         | INTEGER PRIMARY KEY GENERERATED ALWAYS AS IDENTITY |
+| user_id    | FOREIGN KEY REFRENCES users(id) |
+| status     | FOREIGN KEY REFRENCES statuses(id)|
+
+#### `statuses` Table
+| field name | data type |
+| ---------- | --------- |
+| name       | VARCHAR(20) PRIMARY KEY   |
+| description| TEXT                      |
+
+#### `order-products` Table
+| field name | data type |
+| id         | INTEGER PRIMARY KEY GENERERATED ALWAYS AS IDENTITY |
+| order_id   | FOREIGN KEY REFRENCES orders(id) |
+| product_id | FOREIGN KEY REFRENCES products(id) |
+| quantity   | INTEGER |
