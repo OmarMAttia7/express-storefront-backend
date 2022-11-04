@@ -11,12 +11,12 @@ Please do not use the code within for commercial purposes.
 
 ## Setting up the database
 
-# With Docker
+### With Docker
 
 When using docker write in your `.env` file the variables needed inside `docker-compose.yml`, and run `docker compose up -d` inside your terminal.
 If you ommit `DB_PORT` the app will default to port 5432.
 
-# Locally
+### Locally
 
 Log in to `psql` on your temrinal with a superuser and run the following commands:
 - `CREATE DATABASE yourdbname;`
