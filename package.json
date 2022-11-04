@@ -9,7 +9,9 @@
     "test": "jasmine",
     "pretest": "yarn build",
     "build": "tsc",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "format": "prettier src --write",
+    "lint-format": "yarn build && yarn format"
   },
   "author": "Udacity",
   "license": "ISC",
