@@ -13,6 +13,5 @@ describe("Database Client", () => {
       testString,
     ]);
     expect(res.rows[0].message).toEqual(testString);
-    
   });
 });

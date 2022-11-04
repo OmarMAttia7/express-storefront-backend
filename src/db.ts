@@ -14,7 +14,7 @@ const dbClient = new Pool({
   user: DB_USERNAME,
   password: DB_PASSWORD,
   database: DB_NAME,
-  port: Number(DB_PORT)
+  port: Number(DB_PORT),
 });
 
 export default dbClient;
