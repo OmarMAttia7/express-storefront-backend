@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const [DB_USERNAME, DB_PASSWORD, DB_NAME] = [
-  process.env.DB_USER,
+  process.env.DB_USERNAME,
   process.env.DB_PASSWORD,
   process.env.DB_NAME
 ];
