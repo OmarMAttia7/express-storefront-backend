@@ -6,14 +6,12 @@
   "scripts": {
     "start": "node dist/server.js",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
-    "test": "jasmine",
+    "test": "node scripts/test.js",
     "pretest": "yarn build",
     "build": "tsc",
-    "lint": "eslint src",
-    "format": "prettier src --write",
-    "lint-format": "yarn build && yarn format"
+    "lint": "prettier src --write && eslint src --fix"
   },
-  "author": "Udacity",
+  "author": "Omar M. Attia",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -28,6 +26,8 @@
     "@types/pg": "^7.14.7",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.42.0",
+    "db-migrate": "^0.11.13",
+    "db-migrate-pg": "^1.2.2",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
