@@ -3,7 +3,8 @@ function runScript(scriptObject) {
 
   const spawn = spawnSync(scriptObject.script, (scriptObject.options || []),
   {
-    stdio: 'inherit'
+    stdio: 'inherit',
+    env: process.env
   });
 
   stopProcess(spawn);
