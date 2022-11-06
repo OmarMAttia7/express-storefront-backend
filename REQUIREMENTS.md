@@ -48,7 +48,7 @@
 | id              | INTEGER PRIMARY KEY GENERERATED ALWAYS AS IDENTITY |
 | first_name      | VARCHAR(50)          |
 | last_name       | VARCHAR(50)          |
-| password_digest | CHAR                 |
+| password_digest | CHAR(60)             |
 
 #### `products` Table
 | field name | data type |
