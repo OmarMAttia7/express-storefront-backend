@@ -1,13 +1,13 @@
 const { spawnSync } = require("node:child_process");
-function runScript(scriptObject) {
-
+function runScript(scriptObject, stopOnError) {
+  stopOnError = stopOnError === undefined ? true : stopOnError;
   const spawn = spawnSync(scriptObject.script, (scriptObject.options || []),
   {
     stdio: 'inherit',
     env: process.env
   });
 
-  stopProcess(spawn);
+  if(stopOnError) stopProcess(spawn);
 }
 
 function stopProcess(spawn) {

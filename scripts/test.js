@@ -24,14 +24,14 @@ function runUpMigrations() {
   return runScript({
     script: `${nModule}/db-migrate`,
     options: ["up", "--env", "test"]
-  });
+  }, false);
 }
 
 // Run tests
 function runTests() {
   return runScript({
     script: `${nModule}/jasmine`,
-  });
+  }, false);
 }
 
 // Drop test database
