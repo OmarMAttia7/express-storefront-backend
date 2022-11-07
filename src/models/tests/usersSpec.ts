@@ -1,37 +1,72 @@
-import dbClient from "../../db";
-import bcrypt from "bcrypt";
-import dotenv from 'dotenv';
+import { PoolClient } from "pg";
+import dbPool from "../../db";
+import Users from "../users";
+import addTestUser from "./test_utils/addTestUser";
 
-dotenv.config();
-
-describe("Users Model Class", () => {
-
+describe("Users Model", () => {
+  let usersModel: Users;
+  let testUsers: string[][];
+  let dbClient: PoolClient;
   beforeAll(async () => {
-    await dbClient.connect();
+    usersModel = new Users();
+    dbClient = await dbPool.connect();
 
     // Add entries to the table for testing
-    const testUsers: string[][] = [
+    testUsers = [
       ["Doodle", "Sketch", "wHFrCxF$3n2RnDJz"],
       ["Moon", "Light", "R&SV)Hpf5(*rxnvq"],
-      ["Dangerous", "Amphibian", "CsdbF@r6^%7&I6Hc"]
-    ]
-
-    const sql: string = "INSERT INTO users (first_name, last_name, password_digest) VALUES ($1, $2, $3) RETURNING *";
+      ["Dangerous", "Amphibian", "CsdbF@r6^%7&I6Hc"],
+    ];
 
     for(const user of testUsers) {
-      const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUNDS));
-      const hashedPassword = await bcrypt.hash(user[2], salt);
-
-      const values = [user[0], user[1], hashedPassword];
-
-      await dbClient.query(sql, values);
-    };
-    
-    
+      await addTestUser(user);
+    }
   });
 
-  it("shows all users", async () => {
-    
-  })
+  afterAll(async () => {
+    await dbClient.query("DELETE FROM users *;");
+    await dbClient.release();
+  });
 
+  it("has an index() method that returns all users", async () => {
+    const usersIndex = await usersModel.index();
+
+    expect(usersIndex[0].first_name).toEqual(testUsers[0][0]);
+
+    expect(usersIndex[1].last_name).toEqual(testUsers[1][1]);
+  });
+
+  it("has a show() method that returns user by id", async () => {
+    expect(await usersModel.show(1)).toEqual({
+      id: 1,
+      first_name: testUsers[0][0],
+      last_name: testUsers[0][1],
+    });
+  });
+
+  it("has a create() method that adds a new user", async () => {
+    expect(await usersModel.create("Slithering", "Car", "1r3@$@5f13f")).toEqual({
+      id: 4,
+      first_name: "Slithering",
+      last_name: "Car",
+    });
+  });
+
+  it("has an update() method that updates a user with id", async () => {
+    expect(
+      await usersModel.update(1, { first_name: "Sketchy", last_name: "Doodle" })
+    ).toEqual({
+      id: 1,
+      first_name: "Sketchy",
+      last_name: "Doodle",
+    });
+  });
+
+  it("has a delete() method that deletes users", async () => {
+    expect(await usersModel.delete(2)).toEqual({
+      id: 2,
+      first_name: testUsers[1][0],
+      last_name: testUsers[1][1]
+    });
+  });
 });
