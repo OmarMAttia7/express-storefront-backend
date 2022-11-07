@@ -1,8 +1,11 @@
-import dbClient from "../db";
+import { PoolClient } from "pg";
+import dbPool from "../db";
 
 describe("Database Client", () => {
+  let dbClient: PoolClient;
+
   beforeAll(async () => {
-    await dbClient.connect();
+    dbClient = await dbPool.connect();
   });
 
   it("successfully connects to database", async () => {
@@ -11,5 +14,9 @@ describe("Database Client", () => {
       testString,
     ]);
     expect(res.rows[0].message).toEqual(testString);
+  });
+
+  afterAll(async () => {
+    dbClient.release();
   });
 });
