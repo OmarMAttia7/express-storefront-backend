@@ -18,7 +18,7 @@ describe("Users Model", () => {
       ["Dangerous", "Amphibian", "CsdbF@r6^%7&I6Hc"],
     ];
 
-    for(const user of testUsers) {
+    for (const user of testUsers) {
       await addTestUser(user);
     }
   });
@@ -45,11 +45,13 @@ describe("Users Model", () => {
   });
 
   it("has a create() method that adds a new user", async () => {
-    expect(await usersModel.create("Slithering", "Car", "1r3@$@5f13f")).toEqual({
-      id: 4,
-      first_name: "Slithering",
-      last_name: "Car",
-    });
+    expect(await usersModel.create("Slithering", "Car", "1r3@$@5f13f")).toEqual(
+      {
+        id: 4,
+        first_name: "Slithering",
+        last_name: "Car",
+      }
+    );
   });
 
   it("has an update() method that updates a user with id", async () => {
@@ -66,7 +68,7 @@ describe("Users Model", () => {
     expect(await usersModel.delete(2)).toEqual({
       id: 2,
       first_name: testUsers[1][0],
-      last_name: testUsers[1][1]
+      last_name: testUsers[1][1],
     });
   });
 });
