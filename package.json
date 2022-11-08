@@ -7,7 +7,7 @@
     "start": "node dist/server.js",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
     "test": "node scripts/test.js",
-    "pretest": "yarn build",
+    "pretest": "$npm_execpath run build",
     "build": "tsc",
     "lint": "prettier src --write && eslint src --fix"
   },
