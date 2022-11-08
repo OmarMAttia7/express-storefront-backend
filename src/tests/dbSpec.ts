@@ -1,22 +1,17 @@
-import { PoolClient } from "pg";
 import dbPool from "../db";
 
-describe("Database Client", () => {
-  let dbClient: PoolClient;
+function testSuite(): void {
+  describe("Database Client", () => {
+    it("successfully connects to database", async () => {
+      const dbClient = await dbPool.connect();
+      const testString = "connected";
+      const res = await dbClient.query("SELECT $1::text as message", [
+        testString,
+      ]);
+      expect(res.rows[0].message).toEqual(testString);
+      dbClient.release();
+    });
+  });  
+}
 
-  beforeAll(async () => {
-    dbClient = await dbPool.connect();
-  });
-
-  it("successfully connects to database", async () => {
-    const testString = "connected";
-    const res = await dbClient.query("SELECT $1::text as message", [
-      testString,
-    ]);
-    expect(res.rows[0].message).toEqual(testString);
-  });
-
-  afterAll(async () => {
-    dbClient.release();
-  });
-});
+export default testSuite;

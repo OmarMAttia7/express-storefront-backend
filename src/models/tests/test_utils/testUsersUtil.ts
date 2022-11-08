@@ -19,7 +19,7 @@ async function addTestUser(user: string[]): Promise<void> {
   dbClient.release();
 }
 
-export default async function addTestUsers(usersArr: string[][]): Promise<void> {
+async function addTestUsers(usersArr: string[][]): Promise<void> {
   for(const user of usersArr) {
     await addTestUser(user);
   }

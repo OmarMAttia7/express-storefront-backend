@@ -1,21 +1,14 @@
-import { PoolClient } from "pg";
 import dbPool from "../../db";
 import Users from "../users";
 import {addTestUsers, testUsers} from "./test_utils/testUsersUtil";
 
-describe("Users Model", () => {
+function testSuite(): void {
+  describe("Users Model", () => {
   let usersModel: Users;
-  let dbClient: PoolClient;
+
   beforeAll(async () => {
     usersModel = new Users();
-    dbClient = await dbPool.connect();
-
     await addTestUsers(testUsers);
-  });
-
-  afterAll(async () => {
-    await dbClient.query("DELETE FROM users *;");
-    dbClient.release();
   });
 
   it("has an index() method that returns all users", async () => {
@@ -61,4 +54,13 @@ describe("Users Model", () => {
       last_name: testUsers[1][1],
     });
   });
+
+  afterAll(async () => {
+    const dbClient = await dbPool.connect();
+    await dbClient.query("DELETE FROM users *;");
+    dbClient.release();
+  });
 });
+}
+
+export default testSuite;

@@ -1,4 +1,4 @@
-import dbClient from "../db";
+import dbPool from "../db";
 import hashPassword from "../services/hashPassword";
 
 interface User {
@@ -10,11 +10,12 @@ interface User {
 class Users {
   async index(): Promise<User[]> {
     try {
-      await dbClient.connect();
+      const dbClient = await dbPool.connect();
       const sql = "SELECT id, first_name, last_name FROM users;";
 
       const res = await dbClient.query(sql);
-
+      dbClient.release();
+      
       return res.rows as User[];
     } catch (e) {
       throw Error(e as string);
@@ -23,11 +24,12 @@ class Users {
 
   async show(id: number): Promise<User> {
     try {
-      await dbClient.connect();
+      const dbClient = await dbPool.connect();
       const sql = "SELECT id, first_name, last_name FROM users WHERE id = $1;";
       const values = [id];
 
       const res = await dbClient.query(sql, values);
+      dbClient.release();
 
       return res.rows[0] as User;
     } catch (e) {
@@ -37,12 +39,13 @@ class Users {
 
   async create(fn: string, ln: string, pwd: string): Promise<User> {
     try {
-      await dbClient.connect();
+      const dbClient = await dbPool.connect();
       const sql =
         "INSERT INTO users (first_name, last_name, password_digest) VALUES ($1, $2, $3) RETURNING id, first_name, last_name;";
       const values = [fn, ln, await hashPassword(pwd)];
 
       const res = await dbClient.query(sql, values);
+      dbClient.release();
 
       return res.rows[0] as User;
     } catch (e) {
@@ -55,12 +58,13 @@ class Users {
     newInfo: { first_name: string; last_name: string }
   ): Promise<User> {
     try {
-      await dbClient.connect();
+      const dbClient = await dbPool.connect();
       const sql =
         "UPDATE users SET (first_name, last_name) = ($1, $2) WHERE id = $3 RETURNING id, first_name, last_name;";
       const values = [newInfo.first_name, newInfo.last_name, id];
 
       const res = await dbClient.query(sql, values);
+      dbClient.release();
 
       return res.rows[0] as User;
     } catch (e) {
@@ -70,12 +74,13 @@ class Users {
 
   async delete(id: number): Promise<User> {
     try {
-      await dbClient.connect();
+      const dbClient = await dbPool.connect();
       const sql =
         "DELETE FROM users WHERE id = $1 RETURNING id, first_name, last_name";
       const values = [id];
 
       const res = await dbClient.query(sql, values);
+      dbClient.release();
 
       return res.rows[0] as User;
     } catch (e) {
@@ -85,3 +90,4 @@ class Users {
 }
 
 export default Users;
+export {User, Users};
