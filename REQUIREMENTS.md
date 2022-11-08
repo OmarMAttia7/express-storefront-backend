@@ -63,7 +63,7 @@
 | field name | data type |
 | ---------- | --------- |
 | id         | INTEGER PRIMARY KEY GENERERATED ALWAYS AS IDENTITY |
-| name       | VARCHAR(50)          |
+| category_name       | VARCHAR(50)          |
 
 #### `currencies` Table
 | field name | data type |
