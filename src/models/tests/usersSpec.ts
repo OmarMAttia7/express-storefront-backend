@@ -1,31 +1,21 @@
 import { PoolClient } from "pg";
 import dbPool from "../../db";
 import Users from "../users";
-import addTestUser from "./test_utils/addTestUser";
+import {addTestUsers, testUsers} from "./test_utils/testUsersUtil";
 
 describe("Users Model", () => {
   let usersModel: Users;
-  let testUsers: string[][];
   let dbClient: PoolClient;
   beforeAll(async () => {
     usersModel = new Users();
     dbClient = await dbPool.connect();
 
-    // Add entries to the table for testing
-    testUsers = [
-      ["Doodle", "Sketch", "wHFrCxF$3n2RnDJz"],
-      ["Moon", "Light", "R&SV)Hpf5(*rxnvq"],
-      ["Dangerous", "Amphibian", "CsdbF@r6^%7&I6Hc"],
-    ];
-
-    for (const user of testUsers) {
-      await addTestUser(user);
-    }
+    await addTestUsers(testUsers);
   });
 
   afterAll(async () => {
     await dbClient.query("DELETE FROM users *;");
-    await dbClient.release();
+    dbClient.release();
   });
 
   it("has an index() method that returns all users", async () => {
@@ -36,7 +26,7 @@ describe("Users Model", () => {
     expect(usersIndex[1].last_name).toEqual(testUsers[1][1]);
   });
 
-  it("has a show() method that returns user by id", async () => {
+  it("has a show() method that returns a user by id", async () => {
     expect(await usersModel.show(1)).toEqual({
       id: 1,
       first_name: testUsers[0][0],
@@ -54,7 +44,7 @@ describe("Users Model", () => {
     );
   });
 
-  it("has an update() method that updates a user with id", async () => {
+  it("has an update() method that updates a user by id", async () => {
     expect(
       await usersModel.update(1, { first_name: "Sketchy", last_name: "Doodle" })
     ).toEqual({
@@ -64,7 +54,7 @@ describe("Users Model", () => {
     });
   });
 
-  it("has a delete() method that deletes users", async () => {
+  it("has a delete() method that deletes a user by id", async () => {
     expect(await usersModel.delete(2)).toEqual({
       id: 2,
       first_name: testUsers[1][0],
