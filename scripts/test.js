@@ -1,43 +1,41 @@
 const dotenv = require("dotenv");
-
+const dbmigrate = require('db-migrate');
 const { runScript } = require("./script_utils");
-
-const nModule = "./node_modules/.bin";
+/* 
+Unfortunately jasmine needs it's own process to work correctly
+so it's not possible to use the Jasmine API for this script,
+instead, it's called in a child process with spawnSync
+*/
 dotenv.config();
 process.env.ENV = "test";
 
-createTestDB();
-runUpMigrations();
-runTests();
-dropTestDB();
+async function main() {
+  await createTestDB();
+  await runUpMigrations();
+  await runTests();
+  await dropTestDB();
+}
+
+main();
 
 // Create test database
-function createTestDB() {
-  return runScript({
-    script: `${nModule}/db-migrate`,
-    options: ["db:create", process.env.TEST_DB_NAME],
-  });
+async function createTestDB() {
+  return await dbmigrate.getInstance(true).createDatabase(process.env.TEST_DB_NAME);
 }
 
 // Run UP migrations
-function runUpMigrations() {
-  return runScript({
-    script: `${nModule}/db-migrate`,
-    options: ["up", "--env", "test"]
-  }, false);
+async function runUpMigrations() {
+  return await dbmigrate.getInstance(true, {env: "test"}).up();
 }
 
 // Run tests
-function runTests() {
-  return runScript({
-    script: `${nModule}/jasmine`,
-  }, false);
+async function runTests() {
+  runScript({
+    script: "node_modules/.bin/jasmine"
+  });
 }
 
 // Drop test database
-function dropTestDB() {
-  return runScript({
-    script: `${nModule}/db-migrate`,
-    options: ["db:drop", process.env.TEST_DB_NAME],
-  });
+async function dropTestDB() {
+  return await dbmigrate.getInstance(true).dropDatabase(process.env.TEST_DB_NAME);
 }
