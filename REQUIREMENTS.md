@@ -54,10 +54,10 @@
 | field name | data type |
 | ---------- | --------- |
 | id              | INTEGER PRIMARY KEY GENERERATED ALWAYS AS IDENTITY |
-| name            | VARCHAR(100)         |
+| product_name    | TEXT                 |
 | magnified_price | INTEGER              |
-| currency_code   | FOREIGN KEY REFRENCES currencies(code) |
-| category_id     | FOREIGN KEY REFRENCES categories(id) |
+| currency_code   | FOREIGN KEY REFERENCES currencies(code) |
+| category_id     | FOREIGN KEY REFERENCES categories(id) |
 
 #### `categories` Table
 | field name | data type |
@@ -75,8 +75,8 @@
 | field name | data type |
 | ---------- | --------- |
 | id         | INTEGER PRIMARY KEY GENERERATED ALWAYS AS IDENTITY |
-| user_id    | FOREIGN KEY REFRENCES users(id) |
-| status     | FOREIGN KEY REFRENCES statuses(id)|
+| user_id    | FOREIGN KEY REFERENCES users(id) |
+| status     | FOREIGN KEY REFERENCES statuses(id)|
 
 #### `statuses` Table
 | field name | data type |
@@ -88,6 +88,6 @@
 | field name | data type |
 | ---------- | --------- |
 | id         | INTEGER PRIMARY KEY GENERERATED ALWAYS AS IDENTITY |
-| order_id   | FOREIGN KEY REFRENCES orders(id) |
-| product_id | FOREIGN KEY REFRENCES products(id) |
+| order_id   | FOREIGN KEY REFERENCES orders(id) |
+| product_id | FOREIGN KEY REFERENCES products(id) |
 | quantity   | INTEGER |
