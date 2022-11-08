@@ -1,6 +1,6 @@
 const dotenv = require("dotenv");
 const dbmigrate = require('db-migrate');
-const { runScript } = require("./script_utils");
+const Jasmine = require('jasmine');
 /* 
 Unfortunately jasmine needs it's own process to work correctly
 so it's not possible to use the Jasmine API for this script,
@@ -30,9 +30,11 @@ async function runUpMigrations() {
 
 // Run tests
 async function runTests() {
-  runScript({
-    script: "node_modules/.bin/jasmine"
-  });
+  const jasmine = new Jasmine();
+  jasmine.exitOnCompletion = false;
+  jasmine.loadConfigFile("./spec/support/jasmine.json");
+
+  return await jasmine.execute();
 }
 
 // Drop test database
