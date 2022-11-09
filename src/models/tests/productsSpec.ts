@@ -21,7 +21,7 @@ function testSuite(): void {
         product_name: testProducts[0][0],
         category_id: 1,
         magnified_price: testProducts[0][2] * 100,
-        currency_code: "USD"
+        currency_code: "USD",
       });
     });
 
@@ -31,7 +31,7 @@ function testSuite(): void {
         product_name: testProducts[1][0],
         category_id: 2,
         magnified_price: testProducts[1][2] * 100,
-        currency_code: "USD"
+        currency_code: "USD",
       });
     });
 
@@ -78,7 +78,6 @@ function testSuite(): void {
         currency_code: "USD",
       });
     });
-    
   });
 }
 

@@ -1,7 +1,7 @@
-import dbSuite from './dbSpec';
-import modelsSuite from '../models/tests';
-import dbPool from '../db';
-import seed from './test_utils/seedUtil';
+import dbSuite from "./dbSpec";
+import modelsSuite from "../models/tests";
+import dbPool from "../db";
+import seed from "./test_utils/seedUtil";
 
 describe("Application Testing", () => {
   beforeAll(async () => {
@@ -10,8 +10,8 @@ describe("Application Testing", () => {
 
   dbSuite();
   modelsSuite();
-  
+
   afterAll(async () => {
     await dbPool.end();
   });
-})
+});

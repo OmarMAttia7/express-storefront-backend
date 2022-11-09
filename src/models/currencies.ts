@@ -1,19 +1,19 @@
 import dbPool from "../db";
 
 interface Currency {
-  currency_code: string,
-  magnifier: number
+  currency_code: string;
+  magnifier: number;
 }
 
 class Currencies {
   async index(): Promise<Currency[]> {
     try {
-      const sql = "SELECT * FROM currencies;"
-      
+      const sql = "SELECT * FROM currencies;";
+
       const res = await dbPool.query(sql);
 
       return res.rows;
-    }catch(e) {
+    } catch (e) {
       throw Error(e as string);
     }
   }
@@ -26,11 +26,11 @@ class Currencies {
       const res = await dbPool.query(sql, values);
 
       return res.rows[0];
-    }catch(e){
-      throw Error(e as string)
+    } catch (e) {
+      throw Error(e as string);
     }
   }
 }
 
 export default Currencies;
-export {Currencies, Currency}
+export { Currencies, Currency };

@@ -17,13 +17,13 @@ async function addTestProduct(prodcut: testProduct): Promise<void> {
   const sql =
     "INSERT INTO products (product_name, category_id, magnified_price, currency_code) VALUES($1, $2, $3, $4);";
 
-  const values = [prodcut[0], categoryID, (prodcut[2] * magnifier), "USD"];
+  const values = [prodcut[0], categoryID, prodcut[2] * magnifier, "USD"];
 
   await dbPool.query(sql, values);
 }
 
 async function addTestProducts(testProducts: testProduct[]): Promise<void> {
-  for(const product of testProducts) {
+  for (const product of testProducts) {
     await addTestProduct(product);
   }
 }
