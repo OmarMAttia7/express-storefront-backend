@@ -9,12 +9,12 @@ class Categories {
 
   async index(): Promise<Category[]> {
     try {
-      const dbClient = await dbPool.connect();
+      
 
       const sql = "SELECT * FROM categories;";
 
-      const res = await dbClient.query(sql);
-      dbClient.release();
+      const res = await dbPool.query(sql);
+      
 
       return res.rows;
     } catch (e) {
@@ -22,15 +22,20 @@ class Categories {
     }
   }
 
-  async show(id: number): Promise<Category> {
+  async show(idOrName: number | string): Promise<Category> {
     try {
-      const dbClient = await dbPool.connect();
+      let sql:string;
+      
+      if(typeof idOrName === "number"){
+        sql = "SELECT * FROM categories WHERE id = $1;";
+      }else{
+        sql = "SELECT * FROM categories WHERE category_name = $1";
+      }
 
-      const sql = "SELECT * FROM categories WHERE id = $1;";
-      const values = [id];
+      const values = [idOrName];
 
-      const res = await dbClient.query(sql, values);
-      dbClient.release();
+      const res = await dbPool.query(sql, values);
+      
 
       return res.rows[0];
     } catch (e) {
@@ -40,13 +45,13 @@ class Categories {
 
   async create(categoryName: string): Promise<Category> {
     try {
-      const dbClient = await dbPool.connect();
+      
 
       const sql = "INSERT INTO categories (category_name) VALUES ($1) RETURNING *;";
       const values = [categoryName];
 
-      const res = await dbClient.query(sql, values);
-      dbClient.release();
+      const res = await dbPool.query(sql, values);
+      
 
       return res.rows[0];
     } catch (e) {
@@ -56,13 +61,13 @@ class Categories {
 
   async update(id: number, newValues: {category_name: string}): Promise<Category> {
     try {
-      const dbClient = await dbPool.connect();
+      
 
       const sql = "UPDATE categories SET category_name = $1 WHERE id = $2 RETURNING *;";
       const values = [newValues.category_name, id];
 
-      const res = await dbClient.query(sql, values);
-      dbClient.release();
+      const res = await dbPool.query(sql, values);
+      
 
       return res.rows[0];
     } catch (e) {
@@ -72,13 +77,13 @@ class Categories {
 
   async delete(id: number): Promise<Category> {
     try {
-      const dbClient = await dbPool.connect();
+      
 
       const sql = "DELETE FROM categories * WHERE id = $1 RETURNING *;";
       const values = [id];
 
-      const res = await dbClient.query(sql, values);
-      dbClient.release();
+      const res = await dbPool.query(sql, values);
+      
 
       return res.rows[0];
     } catch (e) {
