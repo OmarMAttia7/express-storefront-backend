@@ -1,3 +1,4 @@
+import dbPool from "../../db";
 import Categories, { Category } from "../categories";
 import {
   addTestCategories,
@@ -23,8 +24,12 @@ function testSuite(): void {
       expect(await categoriesModel.index()).toEqual(expectedArr);
     });
 
-    it("has a show() method that returns a category by id", async () => {
+    it("has a show() method that returns a category by id or name", async () => {
       expect(await categoriesModel.show(2)).toEqual({
+        id: 2,
+        category_name: testCategories[1],
+      });
+      expect(await categoriesModel.show(testCategories[1])).toEqual({
         id: 2,
         category_name: testCategories[1],
       });
@@ -47,11 +52,16 @@ function testSuite(): void {
     });
 
     it("has an update() method that updates a category by id", async () => {
-      const newValues = {category_name: "Stationary supplies"};
+      const newValues = { category_name: "Stationary supplies" };
       expect(await categoriesModel.update(1, newValues)).toEqual({
         id: 1,
-        category_name: newValues.category_name
-      })
+        category_name: newValues.category_name,
+      });
+    });
+
+    afterAll(async () => {
+      await dbPool.query("DELETE FROM categories *;");
+      await dbPool.query("ALTER SEQUENCE categories_id_seq RESTART WITH 1;");
     });
   });
 }
