@@ -81,10 +81,10 @@
 #### `statuses` Table
 | field name | data type |
 | ---------- | --------- |
-| name       | VARCHAR(20) PRIMARY KEY   |
-| description| TEXT                      |
+| status_name       | VARCHAR(20) PRIMARY KEY   |
+| status_description| TEXT                      |
 
-#### `order-products` Table
+#### `orders-products` Table
 | field name | data type |
 | ---------- | --------- |
 | id         | INTEGER PRIMARY KEY GENERERATED ALWAYS AS IDENTITY |
