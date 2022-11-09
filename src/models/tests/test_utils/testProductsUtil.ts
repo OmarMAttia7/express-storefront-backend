@@ -7,7 +7,7 @@ type testProduct = [string, string, number];
 const testProducts: testProduct[] = [
   ["0.5mm ball pens x12", testCategories[0], 15.04],
   ["16GB Ram", testCategories[1], 50.35],
-  ["Hardcove football", testCategories[3], 12],
+  ["Hardcove football", testCategories[2], 12],
 ];
 
 async function addTestProduct(prodcut: testProduct): Promise<void> {
