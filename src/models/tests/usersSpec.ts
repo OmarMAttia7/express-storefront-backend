@@ -4,10 +4,9 @@ import {addTestUsers, testUsers} from "./test_utils/testUsersUtil";
 
 function testSuite(): void {
   describe("Users Model", () => {
-  let usersModel: Users;
+  const usersModel = new Users();
 
   beforeAll(async () => {
-    usersModel = new Users();
     await addTestUsers(testUsers);
   });
 
@@ -56,9 +55,8 @@ function testSuite(): void {
   });
 
   afterAll(async () => {
-    const dbClient = await dbPool.connect();
-    await dbClient.query("DELETE FROM users *;");
-    dbClient.release();
+    await dbPool.query("DELETE FROM users *;");
+    await dbPool.query("ALTER SEQUENCE users_id_seq RESTART WITH 1;");
   });
 });
 }
