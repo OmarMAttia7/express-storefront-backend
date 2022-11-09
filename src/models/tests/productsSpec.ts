@@ -26,13 +26,19 @@ function testSuite(): void {
     });
 
     it("has a show() method that returns a product by id", async () => {
-      expect(await productsModel.show(1)).toEqual(1);
+      expect(await productsModel.show(2)).toEqual({
+        id: 2,
+        product_name: testProducts[1][0],
+        category_id: 2,
+        magnified_price: testProducts[1][2] * 100,
+        currency_code: "USD"
+      });
     });
 
     it("has a create() method that creates a product by id", async () => {
       expect(
         await productsModel.create({
-          productName: "0.5mm sharp pencil",
+          product_name: "0.5mm sharp pencil",
           category: testCategories[0],
           price: 5.45,
           currency: "USD",
@@ -72,7 +78,6 @@ function testSuite(): void {
         currency_code: "USD",
       });
     });
-
     
   });
 }
