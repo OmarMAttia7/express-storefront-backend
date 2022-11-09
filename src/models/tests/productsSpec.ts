@@ -1,3 +1,4 @@
+import dbPool from "../../db";
 import Products from "../products";
 import {
   addTestCategories,
@@ -35,7 +36,7 @@ function testSuite(): void {
       });
     });
 
-    it("has a create() method that creates a product by id", async () => {
+    it("has a create() method that adds a new product", async () => {
       expect(
         await productsModel.create({
           product_name: "0.5mm sharp pencil",
@@ -77,6 +78,11 @@ function testSuite(): void {
         category_id: 3,
         currency_code: "USD",
       });
+    });
+
+    afterAll(async () => {
+      await dbPool.query("DELETE FROM products *;");
+      await dbPool.query("ALTER SEQUENCE products_id_seq RESTART WITH 1");
     });
   });
 }
