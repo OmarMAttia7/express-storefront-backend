@@ -7,7 +7,7 @@ CREATE TABLE products
   category_id INTEGER,
   CONSTRAINT fk_currency
    FOREIGN KEY(currency_code)
-    REFERENCES currencies(code),
+    REFERENCES currencies(currency_code),
   CONSTRAINT fk_category
     FOREIGN KEY(category_id)
       REFERENCES categories(id)
