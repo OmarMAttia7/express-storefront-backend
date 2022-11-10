@@ -8,6 +8,9 @@ Please do not use the code within for commercial purposes, read LICENSE.txt if i
 - [Setting up the database](#setting-up-the-database)
   - [With Docker](#with-docker)
   - [Locally](#locally)
+- [Application Settings](#application-settings)
+  - [Ports](#ports)
+  - [Environment Variables](#environment-variables)
 
 ## Setting up the database
 
@@ -25,3 +28,24 @@ Log in to `psql` on your temrinal with a superuser and run the following command
 - `CREATE DATABASE yourdbname;`
 - `CREATE USER yourusername WITH PASSWORD 'yourpassword';`
 - `GRANT ALL PRIVILEGES ON DATABASE yourdbname TO yourusername;`
+
+## Application Settings
+
+### Ports
+
+- The default port for database is 5432, but you can set it using the `DB_PORT` env variable.
+- The default port for the application is 3000, but you can set it using the `APP_PORT` env variable.
+
+### Environment Variables
+
+The `.env.sample` file has all the environment variables the app needs, Set them to work on your environment and rename it to `.env`.
+
+## Setting up the Package
+
+To set up the application run:
+- `yarn install` or `npm install`
+- `yarn build` or `npm run build`
+- `yarn test` or `npm run test`
+
+To start the application:
+- `yarn start` or `npm run start`
