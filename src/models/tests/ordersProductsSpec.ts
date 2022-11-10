@@ -1,3 +1,4 @@
+import dbPool from "../../db";
 import OrdersProducts from "../ordersProducts";
 import {
   addToTestOrders,
@@ -65,6 +66,11 @@ function testSuite(): void {
         product_id: testOrdersProducts[1][1],
         quantity: 8,
       });
+    });
+
+    afterAll(async () => {
+      await dbPool.query("DELETE FROM orders_products *;");
+      await dbPool.query("ALTER SEQUENCE orders_products_id_seq RESTART WITH 1;");
     });
   });
 }
