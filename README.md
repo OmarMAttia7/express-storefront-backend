@@ -11,6 +11,8 @@ Please do not use the code within for commercial purposes, read LICENSE.txt if i
 - [Application Settings](#application-settings)
   - [Ports](#ports)
   - [Environment Variables](#environment-variables)
+- [Installation](#installation)
+- [Scripts](#scripts)
 
 ## Setting up the database
 
@@ -40,7 +42,7 @@ Log in to `psql` on your temrinal with a superuser and run the following command
 
 The `.env.sample` file has all the environment variables the app needs, Set them to work on your environment and rename it to `.env`.
 
-## Setting up the Package
+## Installation
 
 To set up the application run:
 - `yarn install` or `npm install`
@@ -49,3 +51,11 @@ To set up the application run:
 
 To start the application:
 - `yarn start` or `npm run start`
+
+## Scripts
+
+- `build`: Complies the source code.
+- `watch`: Watches for changes in the source code and compiles them.
+- `test`: Run all test suites.
+- `start`: Start the application.
+- `lint`: Formats the source code, and checks for linting problems and fixes them if possible.
