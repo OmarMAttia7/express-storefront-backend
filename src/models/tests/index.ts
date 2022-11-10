@@ -3,6 +3,7 @@ import productsSuite from "./productsSpec";
 import categoriesSuite from "./categoriesSpec";
 import currenciesSuite from "./currenciesSpec";
 import ordersSuite from "./ordersSpec";
+import ordersProductsSuite from "./ordersProductsSpec";
 
 function testSuite(): void {
   describe("Models", () => {
@@ -11,6 +12,7 @@ function testSuite(): void {
     currenciesSuite();
     productsSuite();
     ordersSuite();
+    ordersProductsSuite();
   });
 }
 
