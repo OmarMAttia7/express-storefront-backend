@@ -49,8 +49,8 @@ async function seedStatuses() {
 
 async function main() {
   try {
-    await seedCategories();
     await seedCurrencies();
+    await seedCategories();
     await seedStatuses();
   } catch (e) {
     console.log(e);
