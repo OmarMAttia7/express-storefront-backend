@@ -6,7 +6,7 @@ import {
 } from "./test_utils/testCategoriesUtil";
 
 function testSuite(): void {
-  describe("Categories Model", () => {
+  describe("Categories Model :", () => {
     let categoriesModel: Categories;
     beforeAll(async () => {
       categoriesModel = new Categories();

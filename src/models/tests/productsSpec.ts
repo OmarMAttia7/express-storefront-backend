@@ -7,7 +7,7 @@ import {
 import { addTestProducts, testProducts } from "./test_utils/testProductsUtil";
 
 function testSuite(): void {
-  describe("Products Model", () => {
+  describe("Products Model :", () => {
     const productsModel = new Products();
 
     beforeAll(async () => {

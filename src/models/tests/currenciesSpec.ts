@@ -1,7 +1,7 @@
 import Currencies from "../currencies";
 
 function testSuite(): void {
-  describe("Currencies Model", () => {
+  describe("Currencies Model :", () => {
     const currenciesModel = new Currencies();
 
     it("has an index() method that returns all currencies", async () => {

@@ -6,7 +6,7 @@ import {
 } from "./test_utils/testOrdersProductsUtil";
 
 function testSuite(): void {
-  describe("OrdersProducts Model", () => {
+  describe("OrdersProducts Model :", () => {
     const ordersProductsModel = new OrdersProducts();
 
     beforeAll(async () => {

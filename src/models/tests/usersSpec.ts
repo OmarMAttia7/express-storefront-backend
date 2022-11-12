@@ -3,7 +3,7 @@ import Users from "../users";
 import { addTestUsers, testUsers } from "./test_utils/testUsersUtil";
 
 function testSuite(): void {
-  describe("Users Model", () => {
+  describe("Users Model :", () => {
     const usersModel = new Users();
 
     beforeAll(async () => {
