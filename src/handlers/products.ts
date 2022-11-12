@@ -33,7 +33,7 @@ async function getById(req: Request, res: Response): Promise<Response> {
     if (result === undefined) {
       return res
         .status(404)
-        .json({ error: "Error 404: There is no products with this id." });
+        .json({ error: "Error 404: There is no product with this id." });
     }
 
     return res.json(result);
