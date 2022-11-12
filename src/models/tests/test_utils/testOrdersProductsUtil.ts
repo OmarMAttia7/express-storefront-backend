@@ -10,17 +10,20 @@ const testOrdersProducts: ordersProducts[] = [
 ];
 
 async function addToTestOrder(processInfo: ordersProducts): Promise<void> {
-  const sql = "INSERT INTO orders_products (order_id, product_id, quantity) VALUES ($1, $2, $3)";
+  const sql =
+    "INSERT INTO orders_products (order_id, product_id, quantity) VALUES ($1, $2, $3)";
 
   const values = [processInfo[0], processInfo[1], processInfo[2]];
 
   await dbPool.query(sql, values);
 }
 
-async function addToTestOrders(testOrdersProducts: ordersProducts[]): Promise<void> {
+async function addToTestOrders(
+  testOrdersProducts: ordersProducts[]
+): Promise<void> {
   await addTestProducts(testProducts);
 
-  for(const process of testOrdersProducts) {
+  for (const process of testOrdersProducts) {
     await addToTestOrder(process);
   }
 }

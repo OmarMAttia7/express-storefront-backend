@@ -1,6 +1,6 @@
-import express, { Request, Response } from 'express';
-import bodyParser from 'body-parser';
-import productsRoute from './routes/products';
+import express, { Request, Response } from "express";
+import bodyParser from "body-parser";
+import productsRoute from "./routes/products";
 
 const app: express.Application = express();
 

@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
+import dbPool from "../db";
 import internalServerError from "../middleware/internalServerError";
+import Categories from "../models/categories";
 import Products from "../models/products";
 
 async function get(_req: Request, res: Response): Promise<Response> {
@@ -21,11 +23,9 @@ async function getById(req: Request, res: Response): Promise<Response> {
     const model = new Products();
 
     if (Number.isNaN(id)) {
-      return res
-        .status(400)
-        .json({
-          error: "Error 400: Invalid syntax, the id has to be a number.",
-        });
+      return res.status(400).json({
+        error: "Error 400: Invalid syntax, the id has to be a number.",
+      });
     }
 
     const result = await model.show(id);
@@ -45,7 +45,6 @@ async function getById(req: Request, res: Response): Promise<Response> {
 
 // This handler assumes you have already validated the body through a middleware
 async function addProduct(req: Request, res: Response): Promise<Response> {
-
   const productInfo = req.body as {
     product_name: string;
     category: string;
@@ -65,4 +64,24 @@ async function addProduct(req: Request, res: Response): Promise<Response> {
   }
 }
 
-export default { get, getById, addProduct };
+async function getProductsByCategory(
+  req: Request,
+  res: Response
+): Promise<Response> {
+  const category = req.params.category;
+
+  try {
+    const categoryId = (await new Categories().show(category)).id;
+    const { rows } = await dbPool.query(
+      "SELECT * FROM products WHERE category_id = $1",
+      [categoryId]
+    );
+
+    return res.json(rows);
+  } catch (e) {
+    console.log(e);
+    return internalServerError(req, res);
+  }
+}
+
+export default { get, getById, addProduct, getProductsByCategory };

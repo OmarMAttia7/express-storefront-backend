@@ -14,10 +14,12 @@ async function addTestOrder(order: [number, string]): Promise<void> {
   await dbPool.query(sql, values);
 }
 
-async function addTestOrders(testOrders: Array<[number, string]>): Promise<void> {
+async function addTestOrders(
+  testOrders: Array<[number, string]>
+): Promise<void> {
   await addTestUsers(testUsers);
-  
-  for(const order of testOrders) {
+
+  for (const order of testOrders) {
     await addTestOrder(order);
   }
 }

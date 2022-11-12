@@ -23,7 +23,7 @@ function testSuite(): void {
         .post("/products/")
         .send({
           product_name: "HB Pencil",
-          category: "catthatdoesntexist"
+          category: "catthatdoesntexist",
         })
         .expect("Content-Type", /json/)
         .expect(400);

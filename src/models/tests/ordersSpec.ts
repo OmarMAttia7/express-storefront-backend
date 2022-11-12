@@ -46,13 +46,11 @@ function testSuite(): void {
     });
 
     it("has a delete() method that deletes an order by id", async () => {
-      expect(await ordersModel.delete(4)).toEqual(
-        {
-          id: 4,
-          user_id: 1,
-          status_name: "completed",
-        }
-      );
+      expect(await ordersModel.delete(4)).toEqual({
+        id: 4,
+        user_id: 1,
+        status_name: "completed",
+      });
     });
   });
 }

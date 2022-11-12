@@ -7,12 +7,12 @@ function testSuite(): void {
       await supertest(app).get("/products/1").expect(200);
     });
 
-    it("responds with a product", async () => {
+    it("responds with the correct product", async () => {
       await supertest(app)
         .get("/products/1")
         .expect("Content-Type", /json/)
         .expect((res) => {
-          res.body.id = 1;
+          expect(res.body.id).toEqual(1);
         });
     });
 

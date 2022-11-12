@@ -70,7 +70,9 @@ function testSuite(): void {
 
     afterAll(async () => {
       await dbPool.query("DELETE FROM orders_products *;");
-      await dbPool.query("ALTER SEQUENCE orders_products_id_seq RESTART WITH 1;");
+      await dbPool.query(
+        "ALTER SEQUENCE orders_products_id_seq RESTART WITH 1;"
+      );
     });
   });
 }
