@@ -6,7 +6,7 @@ import ordersSuite from "./ordersSpec";
 import ordersProductsSuite from "./ordersProductsSpec";
 
 function testSuite(): void {
-  describe("Models", () => {
+  describe("Models :", () => {
     usersSuite();
     categoriesSuite();
     currenciesSuite();
