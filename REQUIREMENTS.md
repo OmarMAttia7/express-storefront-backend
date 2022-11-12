@@ -5,7 +5,6 @@
 | Index                                                       | GET  /products                            |
 | Show                                                        | GET  /products/:id (number)               |
 | Create [token required]                                     | POST /products                            |
-| Top 5 most popular products                                 | GET  /products/popular                    |
 | Products by category (args: product category)               | GET  /products/category/:category (string)|
 
 #### Users
