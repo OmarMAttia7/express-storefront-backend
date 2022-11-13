@@ -23,16 +23,18 @@ function testSuite(): void {
         id: 1,
         first_name: testUsers[0][0],
         last_name: testUsers[0][1],
+        email: testUsers[0][3]
       });
     });
 
     it("has a create() method that adds a new user", async () => {
       expect(
-        await usersModel.create("Slithering", "Car", "1r3@$@5f13f")
+        await usersModel.create("Slithering", "Car", "1r3@$@5f13f", "slcar@example.com")
       ).toEqual({
         id: 4,
         first_name: "Slithering",
         last_name: "Car",
+        email: "slcar@example.com"
       });
     });
 
@@ -46,6 +48,7 @@ function testSuite(): void {
         id: 1,
         first_name: "Sketchy",
         last_name: "Doodle",
+        email: testUsers[0][3]
       });
     });
 
@@ -54,6 +57,7 @@ function testSuite(): void {
         id: 2,
         first_name: testUsers[1][0],
         last_name: testUsers[1][1],
+        email: testUsers[1][3]
       });
     });
 

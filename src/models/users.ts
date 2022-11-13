@@ -5,6 +5,7 @@ interface User {
   id: number;
   first_name: string;
   last_name: string;
+  email: string
 }
 
 class Users {
@@ -22,7 +23,7 @@ class Users {
 
   async show(id: number): Promise<User> {
     try {
-      const sql = "SELECT id, first_name, last_name FROM users WHERE id = $1;";
+      const sql = "SELECT id, first_name, last_name, email FROM users WHERE id = $1;";
       const values = [id];
 
       const res = await dbPool.query(sql, values);
@@ -33,11 +34,11 @@ class Users {
     }
   }
 
-  async create(fn: string, ln: string, pwd: string): Promise<User> {
+  async create(fn: string, ln: string, pwd: string, email: string): Promise<User> {
     try {
       const sql =
-        "INSERT INTO users (first_name, last_name, password_digest) VALUES ($1, $2, $3) RETURNING id, first_name, last_name;";
-      const values = [fn, ln, await hashPassword(pwd)];
+        "INSERT INTO users (first_name, last_name, password_digest, email) VALUES ($1, $2, $3, $4) RETURNING id, first_name, last_name, email;";
+      const values = [fn, ln, await hashPassword(pwd), email];
 
       const res = await dbPool.query(sql, values);
 
@@ -53,7 +54,7 @@ class Users {
   ): Promise<User> {
     try {
       const sql =
-        "UPDATE users SET (first_name, last_name) = ($1, $2) WHERE id = $3 RETURNING id, first_name, last_name;";
+        "UPDATE users SET (first_name, last_name) = ($1, $2) WHERE id = $3 RETURNING id, first_name, last_name, email;";
       const values = [newInfo.first_name, newInfo.last_name, id];
 
       const res = await dbPool.query(sql, values);
@@ -67,7 +68,7 @@ class Users {
   async delete(id: number): Promise<User> {
     try {
       const sql =
-        "DELETE FROM users WHERE id = $1 RETURNING id, first_name, last_name";
+        "DELETE FROM users WHERE id = $1 RETURNING id, first_name, last_name, email";
       const values = [id];
 
       const res = await dbPool.query(sql, values);
