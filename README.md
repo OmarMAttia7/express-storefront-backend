@@ -13,6 +13,11 @@ Please do not use the code within for commercial purposes, read LICENSE.txt if i
   - [Environment Variables](#environment-variables)
 - [Installation](#installation)
 - [Scripts](#scripts)
+- [Usage](#usage)
+  - [Create a new user](#create-a-new-user)
+  - [Using JWT token](#using-jwt-token)
+  - [Creating a product](#creating-a-product)
+  - [Adding an order](#adding-an-order)
 
 ## Setting up the database
 
@@ -48,6 +53,9 @@ To set up the application run:
 - `yarn install` or `npm install`
 - `yarn build` or `npm run build`
 - `yarn test` or `npm run test`
+after setting up the database run:
+- `yarn migrate-up` or `npm run migrate-up`
+- `yarn seed` or `npm run seed`
 
 To start the application:
 - `yarn start` or `npm run start`
@@ -59,3 +67,39 @@ To start the application:
 - `test`: Run all test suites.
 - `start`: Start the application.
 - `lint`: Formats the source code, and checks for linting problems and fixes them if possible.
+- `migrate-up`: Runs all migrations
+- `seed`: Provides essential values for the database
+
+### Usage
+
+## Create a new user
+The endpoint `POST /users` expects a request body in this form:
+```
+{
+  first_name: string,
+  last_name: string,
+  password: string,
+  email: string
+}
+```
+and will respond with a jwt token that you can use on subsequent requests.
+
+## Using JWT token
+Append the token at the `Authorization` header like so:
+```Authorization: Bearer ...token...```
+
+## Creating a product
+The endpoint `POST /products` expects a request body in this form:
+```
+{
+  product_name: string,
+  category: string,
+  price: number,
+  currency: string
+}
+```
+The seed script gives you an initial three categories: Grocery, Sports, Technology. you can add more through the database.
+It also gives you an initial currency: USD, the application should be able to handle multiple currencies but this is the only tested one.
+
+## Adding an order
+The endpoint `POST /orders` only expects a jwt token with the user id, there can't be more than one active order for each user, currently you have to delete or set status to completed through the database

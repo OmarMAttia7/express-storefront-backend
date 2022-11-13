@@ -18,7 +18,7 @@
 | Endpoint | Route |
 | -------- | ----- |
 | Current Order by user (args: user id)[token required]       | GET  /orders/:user-id/current  |
-| Completed Orders by user (args: user id)[token required]    | GET  /orders/:user-id/completed|
+| Add order for current user [token required]                 | POST /orders                   |
 
 ## Data Shapes
 #### Product
