@@ -25,7 +25,7 @@ export default async function validateAddProduct(
     ) {
       return res
         .status(400)
-        .json({ error: "Error 400: incorrect syntax, modify request body." });
+        .json({ error: "Error 400: Incorrect syntax, modify request body." });
     }
 
     // Check if price is a valid number
