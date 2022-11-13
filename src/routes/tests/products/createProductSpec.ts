@@ -1,14 +1,10 @@
 import supertest from "supertest";
 import app from "../../../app";
-import jwt from "jsonwebtoken";
-import env from "../../../utils/env";
 import { testCategories } from "../../../models/tests/test_utils/testCategoriesUtil";
+import getJwtToken from "../test_utils/getJwtToken";
 function testSuite(): void {
   describe("POST /products", () => {
-    const jwtSecret = env("JWT_SECRET");
-    if (jwtSecret === undefined) throw Error("Jwt secret not found");
-
-    const jwtToken = jwt.sign({ user_id: 1 }, jwtSecret);
+    const jwtToken = getJwtToken();
 
     it("responds with status 200 and a product object", async () => {
       await supertest(app)
