@@ -8,7 +8,9 @@ function testSuite(): void {
         .get("/products/category/1")
         .expect("Content-Type", /json/)
         .expect((res) => {
-          expect(res.body[0].category_id).toEqual(1);
+          for (const product of res.body) {
+            expect(product.category_id === 1);
+          }
         });
     });
 
@@ -17,6 +19,13 @@ function testSuite(): void {
         .get("/products/category/13")
         .expect("Content-Type", /json/)
         .expect(404);
+    });
+
+    it("responds with 400 and an error message if category param is not valid", async () => {
+      await supertest(app)
+        .get("/products/category/1eawdfaw3")
+        .expect("Content-Type", /json/)
+        .expect(400);
     });
   });
 }
