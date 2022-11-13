@@ -5,7 +5,7 @@
 | Index                                                       | GET  /products                            |
 | Show                                                        | GET  /products/:id (number)               |
 | Create [token required]                                     | POST /products                            |
-| Products by category (args: product category)               | GET  /products/category/:category (string)|
+| Products by category (args: product category)               | GET  /products/category/:category-id (number)|
 
 #### Users
 | Endpoint | Route |
@@ -17,7 +17,7 @@
 #### Orders
 | Endpoint | Route |
 | -------- | ----- |
-| Current Order by user (args: user id)[token required]       | GET  /orders/:user-id/active   |
+| Current Order by user (args: user id)[token required]       | GET  /orders/:user-id/current  |
 | Completed Orders by user (args: user id)[token required]    | GET  /orders/:user-id/completed|
 
 ## Data Shapes
