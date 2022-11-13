@@ -68,10 +68,17 @@ async function getProductsByCategory(
   req: Request,
   res: Response
 ): Promise<Response> {
-  const category = req.params.category;
+  const categoryId = Number(req.params.category);
 
   try {
-    const categoryId = (await new Categories().show(category)).id;
+    if(Number.isNaN(categoryId)) {
+      return res.status(400).json({error: "Error 400: Category parameter is not valid."});
+    }
+
+    if((await new Categories().show(categoryId)) === undefined){
+      return res.status(404).json({error: "Error 404: This category doesn't exist."});
+    }
+
     const { rows } = await dbPool.query(
       "SELECT * FROM products WHERE category_id = $1",
       [categoryId]
