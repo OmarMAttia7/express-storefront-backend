@@ -11,7 +11,7 @@ interface User {
 class Users {
   async index(): Promise<User[]> {
     try {
-      const sql = "SELECT id, first_name, last_name FROM users;";
+      const sql = "SELECT id, first_name, last_name, email FROM users;";
 
       const res = await dbPool.query(sql);
 
