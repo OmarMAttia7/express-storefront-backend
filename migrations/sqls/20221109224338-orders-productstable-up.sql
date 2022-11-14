@@ -6,8 +6,8 @@ CREATE TABLE orders_products
   quantity INTEGER,
   CONSTRAINT fk_order_id
     FOREIGN KEY(order_id)
-      REFERENCES orders(id),
+      REFERENCES orders(id) ON DELETE CASCADE,
   CONSTRAINT fk_product_id
     FOREIGN KEY(product_id)
-      REFERENCES products(id)
+      REFERENCES products(id) ON DELETE CASCADE
 );
