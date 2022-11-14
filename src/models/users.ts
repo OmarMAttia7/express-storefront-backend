@@ -8,6 +8,10 @@ interface User {
   email: string;
 }
 
+interface fullUser extends User {
+  password_digest: string
+}
+
 class Users {
   async index(): Promise<User[]> {
     try {
@@ -84,7 +88,21 @@ class Users {
       throw Error(e as string);
     }
   }
+
+  async showByEmail(email: string): Promise<fullUser> {
+    try {
+      const sql =
+        "SELECT id, first_name, last_name, email, password_digest FROM users WHERE email = $1;";
+      const values = [email];
+
+      const res = await dbPool.query(sql, values);
+
+      return res.rows[0];
+    } catch (e) {
+      throw Error(e as string);
+    }
+  }
 }
 
 export default Users;
-export { User, Users };
+export { fullUser, User, Users };
