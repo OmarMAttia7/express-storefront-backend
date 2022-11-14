@@ -80,6 +80,11 @@ function testSuite(): void {
       });
     });
 
+    it("has showByCategoryId() method that returns all products in a specific category", async () => {
+      const product = await productsModel.showByCategoryId(1);
+      expect(product[0].category_id).toEqual(1);
+    });
+
     afterAll(async () => {
       await dbPool.query("DELETE FROM products *;");
       await dbPool.query("ALTER SEQUENCE products_id_seq RESTART WITH 1");

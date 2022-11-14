@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import dbPool from "../db";
 import internalServerError from "../middleware/internalServerError";
 import Categories from "../models/categories";
 import Products from "../models/products";
@@ -83,12 +82,9 @@ async function getProductsByCategory(
         .json({ error: "Error 404: This category doesn't exist." });
     }
 
-    const { rows } = await dbPool.query(
-      "SELECT * FROM products WHERE category_id = $1",
-      [categoryId]
-    );
+    const result = await new Products().showByCategoryId(categoryId);
 
-    return res.json(rows);
+    return res.json(result);
   } catch (e) {
     console.log(e);
     return internalServerError(req, res);

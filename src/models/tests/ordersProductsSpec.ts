@@ -68,6 +68,13 @@ function testSuite(): void {
       });
     });
 
+    it("has a showByOrderId() method that returns all products in an order", async () => {
+      const productsInOrder = await ordersProductsModel.showByOrderId(
+        testOrdersProducts[0][0]
+      );
+      expect(productsInOrder[0].order_id).toEqual(testOrdersProducts[0][0]);
+    });
+
     afterAll(async () => {
       await dbPool.query("DELETE FROM orders_products *;");
       await dbPool.query(

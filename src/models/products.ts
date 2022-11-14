@@ -128,6 +128,19 @@ class Products {
       throw Error(e as string);
     }
   }
+
+  async showByCategoryId(categoryId: number): Promise<Product[]> {
+    try {
+      const sql = "SELECT * FROM products WHERE category_id = $1;";
+      const values = [categoryId];
+
+      const res = await dbPool.query(sql, values);
+
+      return res.rows;
+    } catch (e) {
+      throw Error(e as string);
+    }
+  }
 }
 
 export default Products;

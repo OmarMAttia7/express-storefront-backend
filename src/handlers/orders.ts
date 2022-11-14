@@ -1,34 +1,33 @@
 import { Request, Response } from "express";
-import dbPool from "../db";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import internalServerError from "../middleware/internalServerError";
 import env from "../utils/env";
 import Orders from "../models/orders";
+import OrdersProducts from "../models/ordersProducts";
 
 async function getCurrentOrder(req: Request, res: Response): Promise<Response> {
   const userId = Number(req.params.user_id);
   try {
-    const order = (
-      await dbPool.query(
-        "SELECT id FROM orders WHERE user_id = $1 AND status_name = $2",
-        [userId, "active"]
-      )
-    ).rows[0];
+    const orders = new Orders();
+    const allOrders = await orders.showByUserId(userId);
 
-    if (order === undefined) {
+    const activeOrder = allOrders.filter((order) => {
+      return order.status_name === "active";
+    })[0];
+
+    if (activeOrder === undefined) {
       return res
         .status(404)
         .json({ error: "Error 404: There are no active orders by this user." });
     }
 
-    const { rows } = await dbPool.query(
-      "SELECT product_id, quantity FROM orders_products WHERE order_id = $1",
-      [order.id]
+    const productsInOrder = await new OrdersProducts().showByOrderId(
+      activeOrder.id
     );
 
     return res.json({
-      order_id: order.id,
-      products: rows,
+      order_id: activeOrder.id,
+      products: productsInOrder,
     });
   } catch (e) {
     console.log(e);
@@ -48,12 +47,9 @@ async function createOrder(req: Request, res: Response): Promise<Response> {
 
     const orders = new Orders();
 
-    const activeOrders = await dbPool.query(
-      "SELECT * FROM orders WHERE user_id = $1",
-      [userId]
-    );
+    const activeOrders = await orders.showByUserId(userId);
 
-    if (activeOrders.rowCount >= 1) {
+    if (activeOrders.length >= 1) {
       return res
         .status(200)
         .json({ status: "There is already an active order by this user." });

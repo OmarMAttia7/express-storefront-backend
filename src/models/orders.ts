@@ -75,6 +75,19 @@ class Orders {
       throw Error(e as string);
     }
   }
+
+  async showByUserId(userId: number): Promise<Order[]> {
+    try {
+      const sql = "SELECT * FROM orders WHERE user_id = $1;";
+      const values = [userId];
+
+      const res = await dbPool.query(sql, values);
+
+      return res.rows;
+    } catch (e) {
+      throw Error(e as string);
+    }
+  }
 }
 
 export default Orders;

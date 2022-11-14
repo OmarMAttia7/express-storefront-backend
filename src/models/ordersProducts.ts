@@ -84,6 +84,20 @@ class OrdersProducts {
       throw Error(e as string);
     }
   }
+
+  async showByOrderId(orderId: number): Promise<ProductInOrder[]> {
+    try {
+      const sql =
+        "SELECT order_id, product_id, quantity FROM orders_products WHERE order_id = $1;";
+      const values = [orderId];
+
+      const res = await dbPool.query(sql, values);
+
+      return res.rows;
+    } catch (e) {
+      throw Error(e as string);
+    }
+  }
 }
 
 export default OrdersProducts;

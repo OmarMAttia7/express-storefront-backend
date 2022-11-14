@@ -52,6 +52,14 @@ function testSuite(): void {
         status_name: "completed",
       });
     });
+
+    it("has showByUserId() method that returns all orders by a user", async () => {
+      expect((await ordersModel.showByUserId(1))[0]).toEqual({
+        id: 1,
+        user_id: 1,
+        status_name: testOrders[0][1],
+      });
+    });
   });
 }
 
