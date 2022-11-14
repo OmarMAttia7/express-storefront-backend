@@ -35,6 +35,7 @@ Log in to `psql` on your temrinal with a superuser and run the following command
 - `CREATE DATABASE yourdbname;`
 - `CREATE USER yourusername WITH PASSWORD 'yourpassword';`
 - `GRANT ALL PRIVILEGES ON DATABASE yourdbname TO yourusername;`
+- `ALTER USER yourusername CREATEDB;`
 
 ## Application Settings
 
