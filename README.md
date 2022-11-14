@@ -15,9 +15,11 @@ Please do not use the code within for commercial purposes, read LICENSE.txt if i
 - [Scripts](#scripts)
 - [Usage](#usage)
   - [Create a new user](#create-a-new-user)
+  - [Loggin in with a user](#logging-in-with-a-user)
   - [Using JWT token](#using-jwt-token)
   - [Creating a product](#creating-a-product)
   - [Adding an order](#adding-an-order)
+  - [Adding a product to current order]
 
 ## Setting up the database
 
@@ -105,6 +107,16 @@ The endpoint `POST /users` expects a request body in this form:
 ```
 and will respond with a jwt token that you can use on subsequent requests.
 
+## Logging in with a user
+The endpoint `POST /users/login` expects a request body in this form:
+```
+{
+  email: string,
+  password: string
+}
+```
+and will respond with a jwt token that you can use on subsequent requests.
+
 ## Using JWT token
 Append the token at the `Authorization` header like so:
 ```Authorization: Bearer ...token...```
@@ -124,3 +136,13 @@ It also gives you an initial currency: USD, the application should be able to ha
 
 ## Adding an order
 The endpoint `POST /orders` only expects a jwt token with the user id, there can't be more than one active order for each user, currently you have to delete or set status to completed through the database if you want to request it more than once.
+
+## Adding a product to current order
+The endpoint `POST /products/:id` expects a request body in this form
+```
+{
+  quantity: number
+}
+```
+and will add a product to the current active order.
+Expects JWT token in Authorization header.
