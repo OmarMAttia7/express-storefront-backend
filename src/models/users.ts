@@ -9,7 +9,7 @@ interface User {
 }
 
 interface fullUser extends User {
-  password_digest: string
+  password_digest: string;
 }
 
 class Users {

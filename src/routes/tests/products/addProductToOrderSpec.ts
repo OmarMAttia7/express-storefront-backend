@@ -16,7 +16,7 @@ function testSuite(): void {
       await supertest(app)
         .post("/products/10")
         .send({
-          quantity: 5
+          quantity: 5,
         })
         .set("Authorization", `Bearer ${await getJwtToken()}`)
         .expect("Content-Type", /json/)
@@ -24,11 +24,11 @@ function testSuite(): void {
     });
 
     it("responds with status 200 and adds product to order", async () => {
-      await new Orders().create({user_id: 1, status_name: "active"});
+      await new Orders().create({ user_id: 1, status_name: "active" });
       await supertest(app)
         .post("/products/1")
         .send({
-          quantity: 5
+          quantity: 5,
         })
         .set("Authorization", `Bearer ${await getJwtToken()}`)
         .expect(200);

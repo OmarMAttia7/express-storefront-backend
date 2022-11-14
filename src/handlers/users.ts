@@ -68,9 +68,9 @@ async function login(req: Request, res: Response): Promise<Response> {
   const user = res.locals.user as fullUser;
   const jwtSecret = res.locals.jwtSecret as string;
   try {
-    const token = jwt.sign({user_id: user.id}, jwtSecret);
+    const token = jwt.sign({ user_id: user.id }, jwtSecret);
 
-    return res.json({token});
+    return res.json({ token });
   } catch (e) {
     return internalServerError(req, res);
   }

@@ -7,8 +7,12 @@ async function getCurrentOrder(req: Request, res: Response): Promise<Response> {
   const userId = Number(req.params.user_id);
   const tokenPayload = res.locals.token.payload;
   try {
-    if(tokenPayload.user_id !== userId) {
-      return res.status(401).json({error: "Error 401: Unauthorized. Cannot view another user's orders."});
+    if (tokenPayload.user_id !== userId) {
+      return res
+        .status(401)
+        .json({
+          error: "Error 401: Unauthorized. Cannot view another user's orders.",
+        });
     }
 
     const orders = new Orders();
@@ -42,7 +46,6 @@ async function getCurrentOrder(req: Request, res: Response): Promise<Response> {
 async function createOrder(req: Request, res: Response): Promise<Response> {
   const tokenPayload = res.locals.token.payload;
   try {
-
     const userId = tokenPayload.user_id;
 
     const orders = new Orders();

@@ -79,11 +79,12 @@ class Orders {
   async showByUserId(userId: number, active?: boolean): Promise<Order[]> {
     try {
       let sql: string;
-      
-      if(active === undefined || !active) {
+
+      if (active === undefined || !active) {
         sql = "SELECT * FROM orders WHERE user_id = $1;";
-      }else{
-        sql = "SELECT * FROM orders WHERE user_id = $1 and status_name = 'active';";
+      } else {
+        sql =
+          "SELECT * FROM orders WHERE user_id = $1 and status_name = 'active';";
       }
 
       const values = [userId];

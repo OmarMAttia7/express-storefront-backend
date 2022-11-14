@@ -21,7 +21,7 @@ async function authenticate(
     const secret = env("JWT_SECRET");
     if (secret === undefined) return internalServerError(req, res);
 
-    const verifiedToken = jwt.verify(token, secret, {complete: true});
+    const verifiedToken = jwt.verify(token, secret, { complete: true });
     res.locals.token = verifiedToken;
     res.locals.jwtSecret = secret;
     return next() as unknown as Response;

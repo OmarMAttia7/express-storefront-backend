@@ -10,7 +10,7 @@ async function validateAddProductToOrder(
 ): Promise<Response> {
   const productInfo = req.body;
   try {
-    if(!verifyObjectProperties(productInfo, ["quantity"])){
+    if (!verifyObjectProperties(productInfo, ["quantity"])) {
       return res
         .status(400)
         .json({ error: "Error 400: Incorrect syntax, modify request body." });
@@ -18,21 +18,23 @@ async function validateAddProductToOrder(
 
     const quantity = Number(productInfo.quantity);
     const productId = Number(req.params.id);
-    if(Number.isNaN(quantity) || Number.isNaN(productId)){
+    if (Number.isNaN(quantity) || Number.isNaN(productId)) {
       return res
-      .status(400)
-      .json({ error: "Error 400: quantity and product_id have to be valid numbers." });
+        .status(400)
+        .json({
+          error: "Error 400: quantity and product_id have to be valid numbers.",
+        });
     }
 
-    if((await new Products().show(productId)) === undefined) {
+    if ((await new Products().show(productId)) === undefined) {
       return res
-      .status(404)
-      .json({ error: "Error 404: No product exists with this id." });
+        .status(404)
+        .json({ error: "Error 404: No product exists with this id." });
     }
 
-    res.locals.productInfo = {quantity, product_id: productId}
+    res.locals.productInfo = { quantity, product_id: productId };
     return next() as unknown as Response;
-  }catch(e){
+  } catch (e) {
     return internalServerError(req, res);
   }
 }

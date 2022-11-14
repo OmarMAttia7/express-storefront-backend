@@ -26,7 +26,7 @@ async function validateLogin(
         .json({ error: "Error 400: Email or password are incorrect." });
     }
 
-    if(!await comparePassword(userInfo.password ,user.password_digest)){
+    if (!(await comparePassword(userInfo.password, user.password_digest))) {
       return res
         .status(400)
         .json({ error: "Error 400: Email or password are incorrect." });

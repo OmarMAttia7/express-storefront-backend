@@ -22,6 +22,11 @@ productsRoute.get(
   productsHandler.getProductsByCategory
 );
 
-productsRoute.post("/products/:id", authenticate, validateAddProductToOrder, productsHandler.addProductToOrder);
+productsRoute.post(
+  "/products/:id",
+  authenticate,
+  validateAddProductToOrder,
+  productsHandler.addProductToOrder
+);
 
 export default productsRoute;

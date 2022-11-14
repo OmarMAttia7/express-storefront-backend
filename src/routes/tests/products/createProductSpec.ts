@@ -4,7 +4,6 @@ import { testCategories } from "../../../models/tests/test_utils/testCategoriesU
 import getJwtToken from "../test_utils/getJwtToken";
 function testSuite(): void {
   describe("POST /products", () => {
-
     it("responds with status 200 and a product object", async () => {
       await supertest(app)
         .post("/products")
