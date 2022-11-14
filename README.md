@@ -98,8 +98,8 @@ The endpoint `POST /products` expects a request body in this form:
   currency: string
 }
 ```
-The seed script gives you an initial three categories: Grocery, Sports, Technology. you can add more through the database.
+The seed script gives you an initial three categories: Grocery, Sports and Technology. you can add more through the database.
 It also gives you an initial currency: USD, the application should be able to handle multiple currencies but this is the only tested one.
 
 ## Adding an order
-The endpoint `POST /orders` only expects a jwt token with the user id, there can't be more than one active order for each user, currently you have to delete or set status to completed through the database
+The endpoint `POST /orders` only expects a jwt token with the user id, there can't be more than one active order for each user, currently you have to delete or set status to completed through the database if you want to request it more than once.
