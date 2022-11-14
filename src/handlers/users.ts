@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import internalServerError from "../middleware/internalServerError";
-import Users from "../models/users";
+import Users, { fullUser } from "../models/users";
 import jwt from "jsonwebtoken";
 import env from "../utils/env";
 
@@ -64,4 +64,15 @@ async function createUser(req: Request, res: Response): Promise<Response> {
   }
 }
 
-export default { getUsers, getUserById, createUser };
+async function login(req: Request, res: Response): Promise<Response> {
+  const user = res.locals.user as fullUser;
+  const jwtSecret = res.locals.jwtSecret as string;
+  try {
+    const token = jwt.sign({user_id: user.id}, jwtSecret);
+
+    return res.json({token});
+  } catch (e) {
+    return internalServerError(req, res);
+  }
+}
+export default { getUsers, getUserById, createUser, login };

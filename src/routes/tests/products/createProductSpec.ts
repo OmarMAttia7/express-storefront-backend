@@ -4,12 +4,11 @@ import { testCategories } from "../../../models/tests/test_utils/testCategoriesU
 import getJwtToken from "../test_utils/getJwtToken";
 function testSuite(): void {
   describe("POST /products", () => {
-    const jwtToken = getJwtToken();
 
     it("responds with status 200 and a product object", async () => {
       await supertest(app)
         .post("/products")
-        .set("Authorization", "Bearer " + jwtToken)
+        .set("Authorization", `Bearer ${await getJwtToken()}`)
         .send({
           product_name: "HB Pencil",
           category: testCategories[2],
@@ -23,7 +22,7 @@ function testSuite(): void {
     it("responds with status 400 and an error message if product object is invalid", async () => {
       await supertest(app)
         .post("/products/")
-        .set("Authorization", "Bearer " + jwtToken)
+        .set("Authorization", `Bearer ${await getJwtToken()}`)
         .send({
           product_name: "HB Pencil",
           category: "catthatdoesntexist",

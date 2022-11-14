@@ -1,4 +1,5 @@
 import dbPool from "../../../db";
+import { addTestOrders, testOrders } from "./testOrdersUtil";
 import { testProducts, addTestProducts } from "./testProductsUtil";
 
 type ordersProducts = [number, number, number];
@@ -22,7 +23,7 @@ async function addToTestOrders(
   testOrdersProducts: ordersProducts[]
 ): Promise<void> {
   await addTestProducts(testProducts);
-
+  await addTestOrders(testOrders);
   for (const process of testOrdersProducts) {
     await addToTestOrder(process);
   }

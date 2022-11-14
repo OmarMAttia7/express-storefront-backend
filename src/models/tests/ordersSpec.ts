@@ -1,3 +1,4 @@
+import dbPool from "../../db";
 import Orders from "../orders";
 import { addTestOrders, testOrders } from "./test_utils/testOrdersUtil";
 
@@ -59,6 +60,13 @@ function testSuite(): void {
         user_id: 1,
         status_name: testOrders[0][1],
       });
+    });
+
+    afterAll(async () => {
+      await dbPool.query("DELETE FROM users *;");
+      await dbPool.query("ALTER SEQUENCE users_id_seq RESTART WITH 1;");
+      await dbPool.query("DELETE FROM orders *;");
+      await dbPool.query("ALTER SEQUENCE orders_id_seq RESTART WITH 1;");
     });
   });
 }

@@ -1,12 +1,24 @@
-import jwt from "jsonwebtoken";
+import supertest from "supertest";
+import app from "../../../app";
+import { testUsers } from "../../../models/tests/test_utils/testUsersUtil";
 import env from "../../../utils/env";
-function getJwtToken(id?: number): string {
+async function getJwtToken(id?: number): Promise<string> {
+try {
   const jwtSecret = env("JWT_SECRET");
   if (jwtSecret === undefined) throw Error("JWT_SECRET not found");
-  if (id !== undefined) {
-    return jwt.sign({ user_id: id }, jwtSecret);
-  }
-  return jwt.sign({ user_id: 1 }, jwtSecret);
+
+  const response = await supertest(app).post("/users/login").send({
+    email: testUsers[0][3],
+    password: testUsers[0][2]
+  });
+
+  const token = response.body.token as string;
+
+  return token;
+}catch(e) {
+  throw Error("Test login failed.");
+}
+
 }
 
 export default getJwtToken;

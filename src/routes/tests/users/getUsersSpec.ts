@@ -14,7 +14,7 @@ function testSuite(): void {
     it("responds with status 200 and an array of users", async () => {
       await supertest(app)
         .get("/users")
-        .set("Authorization", `Bearer ${getJwtToken()}`)
+        .set("Authorization", `Bearer ${await getJwtToken()}`)
         .expect("Content-Type", /json/)
         .expect(200);
     });

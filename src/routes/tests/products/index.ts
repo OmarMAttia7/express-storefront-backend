@@ -1,7 +1,8 @@
 import getProductsSuite from "./getProductsSpec";
 import getProductByIdSuite from "./getProductByIdSpec";
-import createProductSpec from "./createProductSpec";
-import getProductsByCategory from "./getProductsByCategory";
+import createProductSuite from "./createProductSpec";
+import getProductsByCategorySuite from "./getProductsByCategory";
+import addProductToOrderSuite from "./addProductToOrder";
 import {
   setUpProudctsRoute,
   tearDownProductsRoute,
@@ -15,8 +16,9 @@ function testSuite(): void {
 
     getProductsSuite();
     getProductByIdSuite();
-    createProductSpec();
-    getProductsByCategory();
+    createProductSuite();
+    getProductsByCategorySuite();
+    addProductToOrderSuite();
 
     afterEach(async () => {
       await tearDownProductsRoute();

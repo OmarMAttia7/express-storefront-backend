@@ -31,7 +31,7 @@ function testSuite(): void {
       });
     });
 
-    it("has a create() method that adds a product-in-order", async () => {
+    it("has a create() method that adds a product to a specific order", async () => {
       expect(
         await ordersProductsModel.create({
           order_id: testOrdersProducts[0][0],
@@ -80,6 +80,10 @@ function testSuite(): void {
       await dbPool.query(
         "ALTER SEQUENCE orders_products_id_seq RESTART WITH 1;"
       );
+      await dbPool.query("DELETE FROM orders *;");
+      await dbPool.query("ALTER SEQUENCE orders_id_seq RESTART WITH 1;");
+      await dbPool.query("DELETE FROM users *;");
+      await dbPool.query("ALTER SEQUENCE users_id_seq RESTART WITH 1;");
     });
   });
 }

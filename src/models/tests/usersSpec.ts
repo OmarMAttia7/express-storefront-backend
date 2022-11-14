@@ -66,6 +66,11 @@ function testSuite(): void {
       });
     });
 
+    it("has a showByEmail() method that returns a user by email", async () => {
+      const user = await usersModel.showByEmail(testUsers[2][3]);
+      expect(user.id).toEqual(3);
+    });
+
     afterAll(async () => {
       await dbPool.query("DELETE FROM users *;");
       await dbPool.query("ALTER SEQUENCE users_id_seq RESTART WITH 1;");

@@ -7,7 +7,7 @@ function testSuite(): void {
     it("responds with status 200 and the current order", async () => {
       await supertest(app)
         .get("/orders/1/current")
-        .set("Authorization", `Bearer ${getJwtToken(1)}`)
+        .set("Authorization", `Bearer ${await getJwtToken(1)}`)
         .expect("Content-Type", /json/)
         .expect(200);
     });

@@ -1,16 +1,18 @@
 import getUsersSuite from "./getUsersSpec";
 import getUserByIdSuite from "./getUserById";
 import createUserSuite from "./createUserSpec";
+import loginSuite from "./loginSpec";
 import { setUpUsersRoute, tearDownUsersRoute } from "../test_utils/usersUtil";
 function testSuite(): void {
   describe("Users Routes :", () => {
-    beforeEach(async () => {
+    beforeAll(async () => {
       await setUpUsersRoute();
     });
     getUsersSuite();
     getUserByIdSuite();
     createUserSuite();
-    afterEach(async () => {
+    loginSuite();
+    afterAll(async () => {
       await tearDownUsersRoute();
     });
   });

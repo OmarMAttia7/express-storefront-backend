@@ -3,19 +3,22 @@ import app from "../../../app";
 import getJwtToken from "../test_utils/getJwtToken";
 
 function testSuite(): void {
-  describe("GET /users/:id", () => {
-    it("requires authorization token", async () => {
+  describe("POST /products/:id", () => {
+    it("requires token", async () => {
       await supertest(app)
-        .get("/users/1")
+        .post("/products/1")
         .set("Authorization", "Bearer ")
         .expect(401);
     });
 
-    it("responds with status 200 and a user object", async () => {
+    it("responds with status 404 if product doesn't exist", async () => {
+      await supertest(app).post("/products/10").expect("Content-Type", /json/).expect(404);
+    });
+
+    it("responds with status 200 and adds product to order", async () => {
       await supertest(app)
-        .get("/users/1")
+        .post("/products/1")
         .set("Authorization", `Bearer ${await getJwtToken()}`)
-        .expect("Content-Type", /json/)
         .expect(200);
     });
   });
