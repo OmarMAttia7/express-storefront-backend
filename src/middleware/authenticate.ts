@@ -22,6 +22,8 @@ async function authenticate(
     if (secret === undefined) return internalServerError(req, res);
 
     jwt.verify(token, secret);
+    res.locals.token = token;
+    res.locals.jwtSecret = secret;
     return next() as unknown as Response;
   } catch (e) {
     return res.status(401).json({ error: "Access denied. Unauthorized." });
