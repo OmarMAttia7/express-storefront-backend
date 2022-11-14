@@ -22,7 +22,11 @@ async function validateCreateUser(
         .json({ error: "Error 400: Incorrect syntax, modify request body." });
     }
 
-    if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(userInfo.email)) {
+    if (
+      !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
+        userInfo.email
+      )
+    ) {
       return res
         .status(400)
         .json({ error: "Error 400: Invalid email address" });

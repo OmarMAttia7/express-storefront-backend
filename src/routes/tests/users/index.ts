@@ -3,8 +3,6 @@ import getUserByIdSuite from "./getUserById";
 import createUserSuite from "./createUserSpec";
 import { setUpUsersRoute, tearDownUsersRoute } from "../test_utils/usersUtil";
 function testSuite(): void {
-
-
   describe("Users Routes :", () => {
     beforeEach(async () => {
       await setUpUsersRoute();

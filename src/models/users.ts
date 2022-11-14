@@ -5,7 +5,7 @@ interface User {
   id: number;
   first_name: string;
   last_name: string;
-  email: string
+  email: string;
 }
 
 class Users {
@@ -23,7 +23,8 @@ class Users {
 
   async show(id: number): Promise<User> {
     try {
-      const sql = "SELECT id, first_name, last_name, email FROM users WHERE id = $1;";
+      const sql =
+        "SELECT id, first_name, last_name, email FROM users WHERE id = $1;";
       const values = [id];
 
       const res = await dbPool.query(sql, values);
@@ -34,7 +35,12 @@ class Users {
     }
   }
 
-  async create(fn: string, ln: string, pwd: string, email: string): Promise<User> {
+  async create(
+    fn: string,
+    ln: string,
+    pwd: string,
+    email: string
+  ): Promise<User> {
     try {
       const sql =
         "INSERT INTO users (first_name, last_name, password_digest, email) VALUES ($1, $2, $3, $4) RETURNING id, first_name, last_name, email;";

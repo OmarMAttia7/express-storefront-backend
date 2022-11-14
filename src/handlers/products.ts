@@ -71,12 +71,16 @@ async function getProductsByCategory(
   const categoryId = Number(req.params.category);
 
   try {
-    if(Number.isNaN(categoryId)) {
-      return res.status(400).json({error: "Error 400: Category parameter is not valid."});
+    if (Number.isNaN(categoryId)) {
+      return res
+        .status(400)
+        .json({ error: "Error 400: Category parameter is not valid." });
     }
 
-    if((await new Categories().show(categoryId)) === undefined){
-      return res.status(404).json({error: "Error 404: This category doesn't exist."});
+    if ((await new Categories().show(categoryId)) === undefined) {
+      return res
+        .status(404)
+        .json({ error: "Error 404: This category doesn't exist." });
     }
 
     const { rows } = await dbPool.query(

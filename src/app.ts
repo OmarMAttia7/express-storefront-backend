@@ -9,13 +9,15 @@ const app: express.Application = express();
 app.use(bodyParser.json());
 
 app.get("/", (_req: Request, res: Response) => {
-  res.json("Storefront Backend Project\n Available endpoints are: /products, /users");
+  res.json(
+    "Storefront Backend Project\n Available endpoints are: /products, /users"
+  );
 });
 
 app.use(productsRoute);
 
 app.use(usersRoute);
 
-app.use(ordersRoute)
+app.use(ordersRoute);
 
 export default app;

@@ -12,7 +12,7 @@ function testSuite(): void {
           first_name: "john",
           last_name: "doe",
           password: "123456",
-          email: "johndoe@example.com"
+          email: "johndoe@example.com",
         })
         .expect((res) => {
           expect(res.body.token !== undefined);

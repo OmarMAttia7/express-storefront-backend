@@ -30,11 +30,9 @@ export default async function validateAddProduct(
 
     // Check if price is a valid number
     if (Number.isNaN(Number(body.price))) {
-      return res
-        .status(400)
-        .json({
-          error: "Error 400: incorrect syntax, price must be a valid number.",
-        });
+      return res.status(400).json({
+        error: "Error 400: incorrect syntax, price must be a valid number.",
+      });
     }
 
     // Check if category exists

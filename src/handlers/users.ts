@@ -37,23 +37,28 @@ async function getUserById(req: Request, res: Response): Promise<Response> {
 
 async function createUser(req: Request, res: Response): Promise<Response> {
   const userInfo = req.body as {
-    first_name: string,
-    last_name: string,
-    password: string,
-    email: string
-  }
-  
+    first_name: string;
+    last_name: string;
+    password: string;
+    email: string;
+  };
+
   try {
     const users = new Users();
 
-    const result = await users.create(userInfo.first_name, userInfo.last_name, userInfo.password, userInfo.email);
+    const result = await users.create(
+      userInfo.first_name,
+      userInfo.last_name,
+      userInfo.password,
+      userInfo.email
+    );
 
     const jwtSecret = env("JWT_SECRET");
-    if(jwtSecret === undefined) return internalServerError(req, res);
+    if (jwtSecret === undefined) return internalServerError(req, res);
 
-    const token = jwt.sign({user_id: result.id}, jwtSecret);
+    const token = jwt.sign({ user_id: result.id }, jwtSecret);
 
-    return res.json({token});
+    return res.json({ token });
   } catch (e) {
     return internalServerError(req, res);
   }
