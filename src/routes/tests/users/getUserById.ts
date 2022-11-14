@@ -15,6 +15,7 @@ function testSuite(): void {
       await supertest(app)
         .get("/users/1")
         .set("Authorization", `Bearer ${getJwtToken()}`)
+        .expect("Content-Type", /json/)
         .expect(200);
     });
   });
