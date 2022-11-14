@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import internalServerError from "../middleware/internalServerError";
 import Categories from "../models/categories";
+import Orders from "../models/orders";
+import OrdersProducts from "../models/ordersProducts";
 import Products from "../models/products";
 
 async function get(_req: Request, res: Response): Promise<Response> {
@@ -91,4 +93,40 @@ async function getProductsByCategory(
   }
 }
 
-export default { get, getById, addProduct, getProductsByCategory };
+async function addProductToOrder(
+  req: Request,
+  res: Response
+): Promise<Response> {
+  const tokenPayload = res.locals.token.payload;
+  const productInfo = res.locals.productInfo;
+  try {
+    const userId = tokenPayload.user_id as number;
+
+    const activeOrder = (await new Orders().showByUserId(userId, true))[0];
+
+    if (activeOrder === undefined) {
+      return res
+        .status(404)
+        .json({ error: "There is no active order by this user." });
+    }
+
+    const result = await new OrdersProducts().create({
+      order_id: activeOrder.id,
+      product_id: productInfo.product_id,
+      quantity: productInfo.quantity,
+    });
+
+    return res.json(result);
+  } catch (e) {
+    console.log(e);
+    return internalServerError(req, res);
+  }
+}
+
+export default {
+  get,
+  getById,
+  addProduct,
+  getProductsByCategory,
+  addProductToOrder,
+};

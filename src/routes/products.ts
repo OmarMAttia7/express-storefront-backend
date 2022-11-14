@@ -2,6 +2,7 @@ import { Router } from "express";
 import productsHandler from "../handlers/products";
 import authenticate from "../middleware/authenticate";
 import validateAddProduct from "../middleware/products/validateAddProduct";
+import validateAddProductToOrder from "../middleware/products/validateAddProductToOrder";
 
 const productsRoute = Router();
 
@@ -15,9 +16,12 @@ productsRoute.post(
   validateAddProduct,
   productsHandler.addProduct
 );
-export default productsRoute;
 
 productsRoute.get(
   "/products/category/:category",
   productsHandler.getProductsByCategory
 );
+
+productsRoute.post("/products/:id", authenticate, validateAddProductToOrder, productsHandler.addProductToOrder);
+
+export default productsRoute;

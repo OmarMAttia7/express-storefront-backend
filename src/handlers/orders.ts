@@ -1,13 +1,16 @@
 import { Request, Response } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
 import internalServerError from "../middleware/internalServerError";
-import env from "../utils/env";
 import Orders from "../models/orders";
 import OrdersProducts from "../models/ordersProducts";
 
 async function getCurrentOrder(req: Request, res: Response): Promise<Response> {
   const userId = Number(req.params.user_id);
+  const tokenPayload = res.locals.token.payload;
   try {
+    if(tokenPayload.user_id !== userId) {
+      return res.status(401).json({error: "Error 401: Unauthorized. Cannot view another user's orders."});
+    }
+
     const orders = new Orders();
     const allOrders = await orders.showByUserId(userId);
 
@@ -37,13 +40,10 @@ async function getCurrentOrder(req: Request, res: Response): Promise<Response> {
 
 // This function assumes authorization and validation have already been done
 async function createOrder(req: Request, res: Response): Promise<Response> {
+  const tokenPayload = res.locals.token.payload;
   try {
-    const token = (req.headers.authorization as string).split(" ")[1];
-    const decoded = jwt.verify(token, env("JWT_SECRET") as string, {
-      complete: true,
-    });
 
-    const userId = (decoded.payload as JwtPayload).user_id;
+    const userId = tokenPayload.user_id;
 
     const orders = new Orders();
 

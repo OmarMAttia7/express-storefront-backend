@@ -76,9 +76,16 @@ class Orders {
     }
   }
 
-  async showByUserId(userId: number): Promise<Order[]> {
+  async showByUserId(userId: number, active?: boolean): Promise<Order[]> {
     try {
-      const sql = "SELECT * FROM orders WHERE user_id = $1;";
+      let sql: string;
+      
+      if(active === undefined || !active) {
+        sql = "SELECT * FROM orders WHERE user_id = $1;";
+      }else{
+        sql = "SELECT * FROM orders WHERE user_id = $1 and status_name = 'active';";
+      }
+
       const values = [userId];
 
       const res = await dbPool.query(sql, values);
