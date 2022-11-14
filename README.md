@@ -53,6 +53,7 @@ To set up the application run:
 - `yarn install` or `npm install`
 - `yarn build` or `npm run build`
 - `yarn test` or `npm run test`
+
 after setting up the database run:
 - `yarn migrate-up` or `npm run migrate-up`
 - `yarn seed` or `npm run seed`
