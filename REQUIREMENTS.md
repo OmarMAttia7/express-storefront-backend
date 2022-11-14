@@ -5,8 +5,8 @@
 | Index                                                       | GET  /products                            |
 | Show                                                        | GET  /products/:id (number)               |
 | Create [token required]                                     | POST /products                            |
-| Add product to order [token required]                       | POST /products/:id                        |
-| Products by category (args: product category)               | GET  /products/category/:category-id (number)|
+| Add product to order (args: product id) [token required]    | POST /products/:id                        |
+| Products by category (args: product category id)            | GET  /products/category/:category-id (number)|
 
 #### Users
 | Endpoint | Route |
