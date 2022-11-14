@@ -2,7 +2,7 @@ import getProductsSuite from "./getProductsSpec";
 import getProductByIdSuite from "./getProductByIdSpec";
 import createProductSuite from "./createProductSpec";
 import getProductsByCategorySuite from "./getProductsByCategory";
-import addProductToOrderSuite from "./addProductToOrder";
+import addProductToOrderSuite from "./addProductToOrderSpec";
 import {
   setUpProudctsRoute,
   tearDownProductsRoute,
