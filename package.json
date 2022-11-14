@@ -6,13 +6,13 @@
   "scripts": {
     "start": "node dist/server.js",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
-    "test": "node scripts/test.js",
+    "test": "node scripts/test",
     "pretest": "$npm_execpath run build",
     "build": "tsc",
     "lint": "prettier src --write && eslint src --fix",
     "migrate-up": "db-migrate up",
     "migrate-reset": "db-migrate reset",
-    "seed": "node scripts/seed.js"
+    "seed": "node scripts/seed"
   },
   "author": "Omar M. Attia",
   "license": "ISC",
