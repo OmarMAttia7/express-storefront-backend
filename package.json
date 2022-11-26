@@ -7,7 +7,7 @@
     "node": "16.18.0"
   },
   "scripts": {
-    "start": "$npm_execpath run migrate-up && $npm_execpath run seed || true && node dist/server.js",
+    "start": "node dist/server.js",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
     "test": "node scripts/test",
     "pretest": "$npm_execpath run build",
@@ -16,7 +16,7 @@
     "migrate-up": "$npm_execpath run db-migrate up",
     "migrate-reset": "$npm_execpath run db-migrate reset",
     "seed": "node scripts/seed",
-    "build:prod-copy": "cp .elasticbeanstalk -r www/.elasticbeanstalk && cp -r scripts www/scripts && cp migrations -r www/migrations && cp spec -r www/spec && cp package.json www/package.json",
+    "build:prod-copy": "cp .elasticbeanstalk -r www/.elasticbeanstalk && cp -r scripts www/scripts && cp migrations -r www/migrations && cp spec -r www/spec && cp package.json www/package.json && cp database.json www/database.json",
     "prebuild:prod": "rm -r www",
     "build:prod": "mkdir www && $npm_execpath run build:prod-copy && $npm_execpath run build && cp dist -r www/dist && cd www && zip -r Archive.zip . && cd .."
   },
