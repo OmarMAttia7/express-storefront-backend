@@ -48,27 +48,7 @@ Log in to `psql` on your temrinal with a superuser and run the following command
 
 ### Environment Variables
 
-The `.env.sample` file has all the environment variables the app needs, Set them to work on your environment and rename it to `.env`, for example this was my `.env` :
-```
-# Database
-DB_USERNAME=storefront_admin
-DB_PASSWORD=z6Aqsrwu7F3LSWTX
-DB_NAME=storefront
-TEST_DB_NAME=storefront_test
-DB_PORT=5151
-
-# Application
-APP_PORT=3000
-ENV=dev
-
-# Hashing
-SALT_ROUNDS=10
-BCRYPT_SECRET=bcryptsecret
-
-# Authentication
-JWT_SECRET=jwtsecret
-```
-
+The `.env.sample` file has all the environment variables the app needs, Set them to work on your environment and rename it to `.env`.
 ## Installation
 
 To set up the application run:
