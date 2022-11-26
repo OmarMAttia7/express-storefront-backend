@@ -11,6 +11,6 @@ const address = `0.0.0.0:${port}`;
 
 app.listen(port, async function () {
   await dbmigrate.getInstance(true, { env: env("ENV") }).up();
-  await seed();
+  await seed().catch(() => console.log("DB already seeded, no need to seed."));
   console.log(`starting app on ${address}`);
 });
