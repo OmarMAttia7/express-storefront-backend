@@ -1,6 +1,6 @@
 const dotenv = require("dotenv");
-const dbmigrate = require('db-migrate');
-const Jasmine = require('jasmine');
+const dbmigrate = require("db-migrate");
+const Jasmine = require("jasmine");
 /* 
 Unfortunately jasmine needs it's own process to work correctly
 so it's not possible to use the Jasmine API for this script,
@@ -20,12 +20,14 @@ main();
 
 // Create test database
 async function createTestDB() {
-  return await dbmigrate.getInstance(true).createDatabase(process.env.TEST_DB_NAME);
+  return await dbmigrate
+    .getInstance(true)
+    .createDatabase(process.env.TEST_DB_NAME);
 }
 
 // Run UP migrations
 async function runUpMigrations() {
-  return await dbmigrate.getInstance(true, {env: "test"}).up();
+  await dbmigrate.getInstance(true, { env: "test" }).up();
 }
 
 // Run tests
@@ -39,5 +41,7 @@ async function runTests() {
 
 // Drop test database
 async function dropTestDB() {
-  return await dbmigrate.getInstance(true).dropDatabase(process.env.TEST_DB_NAME);
+  return await dbmigrate
+    .getInstance(true)
+    .dropDatabase(process.env.TEST_DB_NAME);
 }
