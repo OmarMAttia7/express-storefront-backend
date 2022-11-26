@@ -1,9 +1,10 @@
 import { Pool } from "pg";
 import env from "./utils/env";
 
-const [DB_USERNAME, DB_PASSWORD, ENV] = [
+const [DB_USERNAME, DB_PASSWORD, DB_HOST, ENV] = [
   env("DB_USERNAME"),
   env("DB_PASSWORD"),
+  env("DB_HOST"),
   env("ENV"),
 ];
 
@@ -20,6 +21,7 @@ const dbPool: Pool = new Pool({
   password: DB_PASSWORD,
   database: DB_NAME,
   port: Number(DB_PORT),
+  host: DB_HOST
 });
 
 export default dbPool;
