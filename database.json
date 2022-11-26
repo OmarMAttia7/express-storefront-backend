@@ -1,5 +1,6 @@
 {
   "dev": {
+    "host": {"ENV": "DB_HOST"},
     "driver": "pg",
     "user": {"ENV": "DB_USERNAME"},
     "password": {"ENV": "DB_PASSWORD"},
@@ -7,6 +8,7 @@
     "database": {"ENV": "DB_NAME"}
   },
   "test": {
+    "host": {"ENV": "DB_HOST"},
     "driver": "pg",
     "user": {"ENV": "DB_USERNAME"},
     "password": {"ENV": "DB_PASSWORD"},

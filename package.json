@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "description": "",
   "main": "server.ts",
+  "engines": {
+    "node": "16.18.0"
+  },
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "$npm_execpath run migrate-up && node dist/server.js",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
     "test": "node scripts/test",
     "pretest": "$npm_execpath run build",
