@@ -19,7 +19,7 @@ Please do not use the code within for commercial purposes, read LICENSE.txt if i
   - [Using JWT token](#using-jwt-token)
   - [Creating a product](#creating-a-product)
   - [Adding an order](#adding-an-order)
-  - [Adding a product to current order]
+  - [Adding a product to current order](#adding-a-product-to-current-order)
 
 ## Setting up the database
 
