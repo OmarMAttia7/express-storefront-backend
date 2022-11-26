@@ -12,7 +12,10 @@
     "lint": "prettier src --write && eslint src --fix",
     "migrate-up": "db-migrate up",
     "migrate-reset": "db-migrate reset",
-    "seed": "node scripts/seed"
+    "seed": "node scripts/seed",
+    "build:prod-copy": "cp .elasticbeanstalk -r www/.elasticbeanstalk && cp -r scripts www/scripts && cp migrations -r www/migrations && cp spec -r www/spec && cp package.json www/package.json",
+    "prebuild:prod": "rm -r www",
+    "build:prod": "mkdir www && $npm_execpath run build:prod-copy && $npm_execpath run build && cp dist -r www/dist && cd www && zip -r Archive.zip . && cd .."
   },
   "author": "Omar M. Attia",
   "license": "ISC",
