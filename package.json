@@ -11,8 +11,8 @@
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
     "test": "node scripts/test",
     "pretest": "$npm_execpath run build",
-    "build": "tsc",
-    "lint": "prettier src --write && eslint src --fix",
+    "build": "$npm_execpath run tsc",
+    "lint": "$npm_execpath run prettier src --write && $npm_execpath run eslint src --fix",
     "migrate-up": "$npm_execpath run db-migrate up",
     "migrate-reset": "$npm_execpath run db-migrate reset",
     "seed": "node scripts/seed",
@@ -25,12 +25,12 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.19.0",
+    "db-migrate": "^0.11.13",
+    "db-migrate-pg": "^1.2.2",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "pg": "^8.5.1",
-    "db-migrate": "^0.11.13",
-    "db-migrate-pg": "^1.2.2"
+    "pg": "^8.5.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -40,7 +40,7 @@
     "@types/pg": "^7.14.7",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
-    "@typescript-eslint/parser": "^5.42.0",
+    "@typescript-eslint/parser": "^5.44.0",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
@@ -52,6 +52,7 @@
     "prettier": "^2.7.1",
     "supertest": "^6.3.1",
     "ts-node": "^9.1.1",
-    "tsc-watch": "^4.2.9"
+    "tsc-watch": "^4.2.9",
+    "typescript": "^4.9.3"
   }
 }
