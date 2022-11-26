@@ -19,11 +19,9 @@ async function validateAddProductToOrder(
     const quantity = Number(productInfo.quantity);
     const productId = Number(req.params.id);
     if (Number.isNaN(quantity) || Number.isNaN(productId)) {
-      return res
-        .status(400)
-        .json({
-          error: "Error 400: quantity and product_id have to be valid numbers.",
-        });
+      return res.status(400).json({
+        error: "Error 400: quantity and product_id have to be valid numbers.",
+      });
     }
 
     if ((await new Products().show(productId)) === undefined) {

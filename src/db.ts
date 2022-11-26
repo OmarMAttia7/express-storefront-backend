@@ -21,7 +21,7 @@ const dbPool: Pool = new Pool({
   password: DB_PASSWORD,
   database: DB_NAME,
   port: Number(DB_PORT),
-  host: DB_HOST
+  host: DB_HOST,
 });
 
 export default dbPool;

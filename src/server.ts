@@ -1,7 +1,7 @@
 import app from "./app";
 import env from "./utils/env";
 import normalizePort from "./utils/normalizePort";
-// @ts-ignore
+// @ts-expect-error
 import dbmigrate from "db-migrate";
 import seed from "./utils/seed";
 
