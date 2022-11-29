@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import cors from "cors";
 import bodyParser from "body-parser";
 import productsRoute from "./routes/products";
 import usersRoute from "./routes/users";
@@ -7,6 +8,7 @@ import ordersRoute from "./routes/orders";
 const app: express.Application = express();
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get("/", (_req: Request, res: Response) => {
   res.json(
